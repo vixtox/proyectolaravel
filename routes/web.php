@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+//Route::view('/registro_empleado', 'form_registro_empleados');
+
+Route::get('/registroEmpleado', 'App\Http\Controllers\ControllerFormRegEmpleado')->name('registroEmpleado');
+
+Route::post('registroEmpleado', 'App\Http\Controllers\ControllerDatosValidacion@validacion');
+
