@@ -19,7 +19,18 @@ use Illuminate\Support\Facades\Route;
 
 //Route::view('/registro_empleado', 'form_registro_empleados');
 
-Route::get('/registroEmpleado', 'App\Http\Controllers\ControllerFormRegEmpleado')->name('registroEmpleado');
+Route::get('/registroEmpleado', 'App\Http\Controllers\ControllerFormRegEmpleados')->name('registroEmpleado');
 
-Route::post('registroEmpleado', 'App\Http\Controllers\ControllerDatosValidacion@validacion');
+Route::post('registroEmpleado', 'App\Http\Controllers\ControllerDatosEmpleadosValidacion@validacion');
 
+Route::get('/registroCliente', 'App\Http\Controllers\ControllerFormRegClientes')->name('registroCliente');
+
+Route::post('registroCliente', 'App\Http\Controllers\ControllerDatosClientesValidacion@validacion');
+
+Route::get('/registroCuotas', 'App\Http\Controllers\ControllerFormCuotas')->name('registroCuotas');
+
+Route::post('registroCuotas', 'App\Http\Controllers\ControllerDatosCuotasValidacion@validacion');
+
+Route::get('/insertarTarea', 'App\Http\Controllers\ControllerFormInsertarTarea')->name('insertarTarea');
+
+Route::post('insertarTarea', 'App\Http\Controllers\ControllerDatosInsertarTareaValidacion@validacion');

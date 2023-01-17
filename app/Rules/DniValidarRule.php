@@ -39,6 +39,6 @@ class DniValidarRule implements Rule
      */
     public function message()
     {
-        return 'El DNI es inválido.';
+        return 'El DNI no es válido.';
     }
 }

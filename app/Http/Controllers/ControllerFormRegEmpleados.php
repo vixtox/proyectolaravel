@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ControllerFormRegEmpleado extends Controller
+class ControllerFormRegEmpleados extends Controller
 {
     /**
      * Handle the incoming request.
@@ -15,6 +15,6 @@ class ControllerFormRegEmpleado extends Controller
     public function __invoke(Request $request)
     {
         //
-        return view('form_registro_empleados');
+        return view('formRegistroEmpleados');
     }
 }
