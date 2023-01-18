@@ -4,48 +4,55 @@
 
 @section('contenido')
 
-@if (session()->has('message'))
-    <div class="alert alert-success">
-        {{ session()->get('message') }}
-    </div>
-@endif
 
-    <h1>Insertar cliente</h1>
+<div class="cabecera">
+    <h3>Formulario cliente</h3>
+    @if (session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
+</div>
+   
 
-    <form method="POST" action="{{ route('registroCliente') }}" >
+    <form action="{{ route('registroCliente') }}"  method="post" class="row g-3" id="formulario">
         @csrf
-        <div class="col-md-3">
+
+        <div class="col-md-6">
             <label class="form-label">Nombre y apellidos</label>
             <input class="form-control" type="text" name="nombre_apellidos" value="{{ old('nombre_apellidos') }}">
-            {!!$errors->first('nombre_apellidos','<span style="color: red;">:message</span>')!!}
+            {!! $errors->first('nombre_apellidos', '<span style="color: red;">:message</span>') !!}
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
             <label class="form-label">CIF</label>
             <input class="form-control" type="text" name="cif" value="{{ old('cif') }}">
-            {!!$errors->first('cif','<span style="color: red;">:message</span>')!!}
+            {!! $errors->first('cif', '<span style="color: red;">:message</span>') !!}
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
             <label class="form-label">Correo</label>
-            <input class="form-control" type="text" name="correo" value="{{ old('correo') }}">
-            {!!$errors->first('correo','<span style="color: red;">:message</span>')!!}
+            <div class="input-group">
+                <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                <input class="form-control" type="text" name="correo" value="{{ old('correo') }}">
+            </div>
+            {!! $errors->first('correo', '<span style="color: red;">:message</span>') !!}
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
             <label class="form-label" for="telefono">Teléfono</label>
             <input type="text" class="form-control" id="telefono" name="telefono" value="{{ old('telefono') }}">
-            {!!$errors->first('telefono','<span style="color: red;">:message</span>')!!}
+            {!! $errors->first('telefono', '<span style="color: red;">:message</span>') !!}
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
             <label class="form-label">Iban</label>
             <input class="form-control" type="text" name="iban" value="{{ old('iban') }}">
-            {!!$errors->first('iban','<span style="color: red;">:message</span>')!!}
+            {!! $errors->first('iban', '<span style="color: red;">:message</span>') !!}
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
             <label for="paises" class="form-label">Cuota mensual:</label>
             <input class="form-control" type="text" name="cuota" value="{{ old('cuota') }}">
-            {!!$errors->first('cuota','<span style="color: red;">:message</span>')!!}
+            {!! $errors->first('cuota', '<span style="color: red;">:message</span>') !!}
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-6">
             <label for="paises" class="form-label">Países:</label>
             <select class="form-select" name="pais">
                 @foreach ($paises as $pais)
@@ -53,10 +60,10 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
             <label for="paises" class="form-label">Monedas:</label>
             <select class="form-select" name="moneda">
-                <?php $monedasMostradas = array(); ?>
+                <?php $monedasMostradas = []; ?>
                 @foreach ($paises as $pais)
                     @if ($pais->nombre_moneda == null)
                     @else
@@ -68,9 +75,9 @@
                 @endforeach
             </select><br>
         </div>
-        <div class="col-md-3">
+        <div id="boton" class="col-md-12">
             <button class="btn btn-primary" type="submit" name="enviar">Enviar</button>
         </div>
     </form>
-    
+
 @endsection

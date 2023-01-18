@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\Empleado;
 use App\Models\Provincia;
+use App\Models\Tarea;
 
 class ControllerFormInsertarTarea extends Controller
 {
@@ -25,4 +26,26 @@ class ControllerFormInsertarTarea extends Controller
      
     
     }
+
+    public function listar()
+    {
+        $tareas = Tarea::orderBy('fecha_realizacion', 'desc')->paginate(10);
+        return view('listaTareas', compact('tareas'));
+    }
+
+    public function borrarTarea(Request $request)
+    {
+        session()->flash('message', 'La tarea  ha sido borrada correctamente.');
+        Tarea::find($request->id)->delete();
+        //$tareas = Tarea::orderBy('fecha_realizacion', 'desc')->paginate(10);
+        //return view('listaTareas', compact('tareas'));
+        return redirect()->route('listaTareas');
+    }
+
+    public function confirmarBorrar(Request $request)
+    {
+        $tarea = Tarea::find($request->id);
+        return view('confirmarBorrar', compact('tarea'));
+    }
+
 }

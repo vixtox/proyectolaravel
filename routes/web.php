@@ -34,3 +34,9 @@ Route::post('registroCuotas', 'App\Http\Controllers\ControllerDatosCuotasValidac
 Route::get('/insertarTarea', 'App\Http\Controllers\ControllerFormInsertarTarea')->name('insertarTarea');
 
 Route::post('insertarTarea', 'App\Http\Controllers\ControllerDatosInsertarTareaValidacion@validacion');
+
+Route::get('/listaTareas', 'App\Http\Controllers\ControllerFormInsertarTarea@listar')->name('listaTareas');
+
+Route::get('/borrarTarea', 'App\Http\Controllers\ControllerFormInsertarTarea@borrarTarea')->name('borrarTarea');
+
+Route::get('/confirmarBorrar', 'App\Http\Controllers\ControllerFormInsertarTarea@confirmarBorrar')->name('confirmarBorrar');

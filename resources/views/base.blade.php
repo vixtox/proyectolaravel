@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>@yield('titulo')</title>
+    <style>
+        #formulario,
+        #cabecera {
+            margin-left: 5em;
+            margin-right: 5em;
+        }
+        #boton, h3 {
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body>
 
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
@@ -26,10 +38,13 @@
                         <a class="nav-link" href="{{ route('registroCliente') }}">Insertar Cliente</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('insertarTarea') }}">Insertar Tareas</a>
+                        <a class="nav-link" href="{{ route('insertarTarea') }}">Insertar Tarea</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('registroCuotas') }}">Insertar Cuota</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('listaTareas') }}">Listar tareas</a>
                     </li>
                 </ul>
             </div>
@@ -37,6 +52,7 @@
     </nav>
 
     @yield('contenido')
-    
+
 </body>
+
 </html>
