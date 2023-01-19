@@ -12,9 +12,24 @@ class ControllerFormCuotas extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function formInsertarCuota(Request $request)
     {
         //
         return view('formCuotas');
     }
+
+    public function validacion(){
+        request()->validate([
+        'concepto'=>'required',
+        'fechaEmision'=>'required|after:now',
+        'importe'=>'required|numeric',
+        'pagada'=>'required',
+        'fechaPago'=>'required|after:now',
+        'notas'=>'required'
+    ]);
+
+    return view('formCuotas');
+
+    }
+
 }

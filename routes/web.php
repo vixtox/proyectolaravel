@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ControllerFormInsertarTarea;
+use App\Http\Controllers\ControllerFormRegEmpleados;
+use App\Http\Controllers\ControllerFormRegClientes;
+use App\Http\Controllers\ControllerFormCuotas;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,30 +17,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+Route::get('/registroEmpleado', [ControllerFormRegEmpleados::class, 'formInsertarEmpleado'])->name('registroEmpleado');
 
-//Route::view('/registro_empleado', 'form_registro_empleados');
+Route::post('registroEmpleado', [ControllerFormRegEmpleados::class, 'validacion']);
 
-Route::get('/registroEmpleado', 'App\Http\Controllers\ControllerFormRegEmpleados')->name('registroEmpleado');
+Route::get('/registroCliente', [ControllerFormRegClientes::class, 'formInsertarCliente'])->name('registroCliente');
 
-Route::post('registroEmpleado', 'App\Http\Controllers\ControllerDatosEmpleadosValidacion@validacion');
+Route::post('registroCliente', [ControllerFormRegClientes::class, 'validacion']);
 
-Route::get('/registroCliente', 'App\Http\Controllers\ControllerFormRegClientes')->name('registroCliente');
+Route::get('/registroCuotas', [ControllerFormCuotas::class, 'formInsertarCuota'])->name('registroCuotas');
 
-Route::post('registroCliente', 'App\Http\Controllers\ControllerDatosClientesValidacion@validacion');
+Route::post('registroCuotas', [ControllerFormCuotas::class, 'validacion']);
 
-Route::get('/registroCuotas', 'App\Http\Controllers\ControllerFormCuotas')->name('registroCuotas');
+Route::get('/insertarTarea', [ControllerFormInsertarTarea::class, 'formularioInsertar'])->name('insertarTarea');
 
-Route::post('registroCuotas', 'App\Http\Controllers\ControllerDatosCuotasValidacion@validacion');
+Route::post('insertarTarea', [ControllerFormInsertarTarea::class, 'validacion'])->name('insertarTarea');
 
-Route::get('/insertarTarea', 'App\Http\Controllers\ControllerFormInsertarTarea')->name('insertarTarea');
+Route::delete('/borrarTarea/{tarea}', [ControllerFormInsertarTarea::class, 'borrarTarea'])->name('borrarTarea');
 
-Route::post('insertarTarea', 'App\Http\Controllers\ControllerDatosInsertarTareaValidacion@validacion');
+Route::get('/listaTareas', [ControllerFormInsertarTarea::class, 'listarTareas'])->name('listaTareas');
 
-Route::get('/listaTareas', 'App\Http\Controllers\ControllerFormInsertarTarea@listar')->name('listaTareas');
+Route::get('/confirmarBorrar/{tarea}', [ControllerFormInsertarTarea::class, 'confirmarBorrar'])->name('confirmarBorrar');
 
-Route::get('/borrarTarea', 'App\Http\Controllers\ControllerFormInsertarTarea@borrarTarea')->name('borrarTarea');
-
-Route::get('/confirmarBorrar', 'App\Http\Controllers\ControllerFormInsertarTarea@confirmarBorrar')->name('confirmarBorrar');
+Route::get('/detallesTarea/{tarea}', [ControllerFormInsertarTarea::class, 'detallesTarea'])->name('detallesTarea');

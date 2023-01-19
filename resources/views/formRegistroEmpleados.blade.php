@@ -5,7 +5,7 @@
 @section('contenido')
 
 <div class="cabecera">
-    <h3>Formulario empleados</h3>
+    <h3>Formulario registro empleado</h3>
     @if (session()->has('message'))
         <div class="alert alert-success">
             {{ session()->get('message') }}

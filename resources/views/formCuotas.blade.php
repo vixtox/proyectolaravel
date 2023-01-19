@@ -7,7 +7,7 @@
     <form method="POST" action="{{ route('registroCuotas') }}">
         @csrf
 
-        <h1>Insertar cuota</h1>
+        <h1>Formulario insertar cuota</h1>
         <div class="col-md-3">
             <label class="form-label">Concepto</label>
             <input class="form-control" type="text" name="concepto" value="{{ old('concepto') }}">

@@ -6,7 +6,7 @@
 
 
 <div class="cabecera">
-    <h3>Formulario cliente</h3>
+    <h3>Formulario registro cliente</h3>
     @if (session()->has('message'))
         <div class="alert alert-success">
             {{ session()->get('message') }}

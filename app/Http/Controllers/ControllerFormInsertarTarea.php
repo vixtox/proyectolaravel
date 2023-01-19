@@ -16,7 +16,7 @@ class ControllerFormInsertarTarea extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function formularioInsertar(Request $request)
     {
         //
         $clientes=Cliente::all();
@@ -27,25 +27,52 @@ class ControllerFormInsertarTarea extends Controller
     
     }
 
-    public function listar()
+    public function listarTareas()
     {
-        $tareas = Tarea::orderBy('fecha_realizacion', 'desc')->paginate(10);
+        $tareas = Tarea::orderBy('fecha_realizacion', 'desc')->paginate(5);
+
         return view('listaTareas', compact('tareas'));
     }
 
-    public function borrarTarea(Request $request)
+    public function borrarTarea(Tarea $tarea)
     {
-        session()->flash('message', 'La tarea  ha sido borrada correctamente.');
-        Tarea::find($request->id)->delete();
-        //$tareas = Tarea::orderBy('fecha_realizacion', 'desc')->paginate(10);
-        //return view('listaTareas', compact('tareas'));
+        $tarea->delete();
+        session()->flash('message', 'La tarea ha sido borrada correctamente.');
         return redirect()->route('listaTareas');
     }
 
-    public function confirmarBorrar(Request $request)
+    public function confirmarBorrar(Tarea $tarea)
     {
-        $tarea = Tarea::find($request->id);
         return view('confirmarBorrar', compact('tarea'));
+    }
+
+    public function detallesTarea(Tarea $tarea)
+    {
+
+        return view('detallesTarea', compact('tarea'));
+    }
+
+    public function validacion(){
+        $dataValidate = request()->validate([
+        'cliente'=>'required',
+        'nombre_apellidos'=>'required|min:3|max:50',
+        'descripcion'=>'required',
+        'correo'=>'required|email',
+        'telefono'=> 'required|regex:/^(?:(?:\+?[0-9]{2,4})?[ ]?[6789][0-9 ]{8,13})$/',
+        'direccion'=>'required',
+        'poblacion'=>'required',
+        'codigo_postal' => ['required', 'regex:/^(0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$/'],
+        'provincia'=>'required',
+        'estado'=>'required',
+        'operario_encargado'=>'required',
+        'fecha_realizacion'=>'required|after:now',
+    ]);
+
+    Tarea::create($dataValidate);
+
+    session()->flash('message', 'La tarea ha sido registrada correctamente.');
+    return redirect()->route('insertarTarea');
+
     }
 
 }

@@ -3,7 +3,7 @@
     @section('contenido')
 
     <div class="cabecera">
-        <h3>Insertar tarea</h3>
+        <h3>Formulario insertar tarea</h3>
         @if (session()->has('message'))
         <div class="alert alert-success">
             {{ session()->get('message') }}
@@ -96,7 +96,7 @@
                 <br>
                 <div class="col-md-6">
                     <label for="" class="form-label">Fecha de realización</label>
-                    <input class="form-control" type="date" name="fecha_realizacion" value="{{ old('codigo_postal') }}">
+                    <input class="form-control" type="date" name="fecha_realizacion" value="{{ old('fecha_realizacion') }}">
                     {!! $errors->first('fecha_realizacion', '<span style="color: red;">:message</span>') !!}
                 </div>
                 <br>
