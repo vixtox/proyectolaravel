@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cuota;
 
 class ControllerFormCuotas extends Controller
 {
@@ -19,15 +20,19 @@ class ControllerFormCuotas extends Controller
     }
 
     public function validacion(){
-        request()->validate([
+        $dataValidate = request()->validate([
         'concepto'=>'required',
-        'fechaEmision'=>'required|after:now',
+        'fecha_emision'=>'required|after:now',
         'importe'=>'required|numeric',
         'pagada'=>'required',
-        'fechaPago'=>'required|after:now',
+        'fecha_pago'=>'required|after:now',
         'notas'=>'required'
     ]);
 
+    
+    Cuota::create($dataValidate);
+
+    session()->flash('message', 'La cuota ha sido registrado correctamente.');
     return view('formCuotas');
 
     }

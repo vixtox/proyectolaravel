@@ -36,8 +36,26 @@ class ControllerFormRegEmpleados extends Controller
 
     session()->flash('message', 'El empleado ha sido registrado correctamente.');
     return redirect()->route('registroEmpleado');
-    //return view('formRegistroEmpleados');
 
+    }
+
+    public function listarEmpleados()
+    {
+        $empleados = Empleado::orderBy('fecha_alta', 'desc')->paginate(5);
+
+        return view('listaEmpleados', compact('empleados'));
+    }
+
+    public function borrarEmpleado(Empleado $empleado)
+    {
+        $empleado->delete();
+        session()->flash('message', 'El empleado ha sido borrado correctamente.');
+        return redirect()->route('listaEmpleados');
+    }
+
+    public function confirmarBorrarEmpleado(Empleado $empleado)
+    {
+        return view('confirmarBorrarEmpleado', compact('empleado'));
     }
 
 }

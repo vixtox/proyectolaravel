@@ -48,6 +48,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('listaTareas') }}">Listar tareas</a>
                     </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ route('listaEmpleados') }}">Listar empleados</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('listaClientes') }}">Listar clientes</a>
+                </li>
                 </ul>
             </div>
         </div>
@@ -100,7 +106,7 @@
           <p class="text-white">© 2022 Copyright: Víctor Martínez Domínguez</p>
         </div>
 
-        <br>
+        <br><br><br>
       
       </footer>
 

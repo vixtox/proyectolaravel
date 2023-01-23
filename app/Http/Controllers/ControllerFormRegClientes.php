@@ -41,4 +41,23 @@ class ControllerFormRegClientes extends Controller
 
     }
 
+    public function listarClientes()
+    {
+        $clientes = Cliente::orderBy('id', 'desc')->paginate(5);
+
+        return view('listaClientes', compact('clientes'));
+    }
+
+    public function borrarCliente(Cliente $cliente)
+    {
+        $cliente->delete();
+        session()->flash('message', 'El cliente ha sido borrado correctamente.');
+        return redirect()->route('listaClientes');
+    }
+
+    public function confirmarBorrarCliente(Cliente $cliente)
+    {
+        return view('confirmarBorrarCliente', compact('cliente'));
+    }
+
 }

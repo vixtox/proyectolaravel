@@ -35,8 +35,20 @@ Route::post('insertarTarea', [ControllerFormInsertarTarea::class, 'validacion'])
 
 Route::delete('/borrarTarea/{tarea}', [ControllerFormInsertarTarea::class, 'borrarTarea'])->name('borrarTarea');
 
+Route::delete('/borrarEmpleado/{empleado}', [ControllerFormRegEmpleados::class, 'borrarEmpleado'])->name('borrarEmpleado');
+
+Route::delete('/borrarCliente/{cliente}', [ControllerFormRegClientes::class, 'borrarCliente'])->name('borrarCliente');
+
 Route::get('/listaTareas', [ControllerFormInsertarTarea::class, 'listarTareas'])->name('listaTareas');
 
+Route::get('/listaEmpleados', [ControllerFormRegEmpleados::class, 'listarEmpleados'])->name('listaEmpleados');
+
+Route::get('/listaClientes', [ControllerFormRegClientes::class, 'listarClientes'])->name('listaClientes');
+
 Route::get('/confirmarBorrar/{tarea}', [ControllerFormInsertarTarea::class, 'confirmarBorrar'])->name('confirmarBorrar');
+
+Route::get('/confirmarBorrarEmpleado/{empleado}', [ControllerFormRegEmpleados::class, 'confirmarBorrarEmpleado'])->name('confirmarBorrarEmpleado');
+
+Route::get('/confirmarBorrarCliente/{cliente}', [ControllerFormRegClientes::class, 'confirmarBorrarCliente'])->name('confirmarBorrarCliente');
 
 Route::get('/detallesTarea/{tarea}', [ControllerFormInsertarTarea::class, 'detallesTarea'])->name('detallesTarea');

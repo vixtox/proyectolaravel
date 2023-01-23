@@ -74,7 +74,10 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item {{ $tareas->currentPage() == 1 ? 'disabled' : '' }}">
-                        <a class="page-link" href="{{ $tareas->previousPageUrl() }}">Previous</a>
+                        <a class="page-link" href="{{ $tareas->url(1) }}">Primera</a>
+                    </li>
+                    <li class="page-item {{ $tareas->currentPage() == 1 ? 'disabled' : '' }}">
+                        <a class="page-link" href="{{ $tareas->previousPageUrl() }}"><<</a>
                     </li>
                     @for ($i = 1; $i <= $tareas->lastPage(); $i++)
                         <li class="page-item {{ $tareas->currentPage() == $i ? 'active' : '' }}">
@@ -82,7 +85,10 @@
                         </li>
                     @endfor
                     <li class="page-item {{ $tareas->currentPage() == $tareas->lastPage() ? 'disabled' : '' }}">
-                        <a class="page-link" href="{{ $tareas->nextPageUrl() }}">Next</a>
+                        <a class="page-link" href="{{ $tareas->nextPageUrl() }}">>></a>
+                    </li>
+                    <li class="page-item {{ $tareas->currentPage() == $tareas->lastPage() ? 'disabled' : '' }}">
+                        <a class="page-link" href="{{ $tareas->url($tareas->lastPage()) }}">Última</a>
                     </li>
                 </ul>
             </nav>

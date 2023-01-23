@@ -1,6 +1,6 @@
 @extends('base')
 
-@section('titulo', 'Formulario registro empleados')
+@section('titulo', 'Formulario registro empleads')
 
 @section('contenido')
 
