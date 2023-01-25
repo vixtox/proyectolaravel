@@ -11,7 +11,7 @@
 
     #cuerpo {
         margin: 2em;
-    }
+    } 
 </style>
 
 <div class="cabecera">
@@ -54,9 +54,8 @@
                             <td>{{ $cliente->pais }}</td>
                             <td>{{ $cliente->moneda }}</td>
                             <td>
-                                <a class="btn btn-danger" href="{{ route('confirmarBorrarCliente', $cliente) }}">Borrar</a>
-                                &nbsp;&nbsp;
-                                <a class="btn btn-warning" href="#">Modificar</a>
+                                <a class="btn btn-danger" href="{{ route('confirmarBorrarCliente', $cliente) }}" title="Borrar"><i class="fa-solid fa-trash"></i></a>
+                                <a class="btn btn-warning" href="#" title="Editar"><i class="fa-solid fa-pen"></i></a>
                             </td>
                         </tr>
                     @endforeach

@@ -54,9 +54,8 @@
                             <td>{{ $empleado->direccion }}</td>
                             <td>{{ $empleado->es_admin }}</td>
                             <td>
-                                <a class="btn btn-danger" href="{{ route('confirmarBorrarEmpleado', $empleado) }}">Borrar</a>
-                                &nbsp;&nbsp;
-                                <a class="btn btn-warning" href="#">Modificar</a>
+                                <a class="btn btn-danger" href="{{ route('confirmarBorrarEmpleado', $empleado) }}" title="Borrar"><i class="fa-solid fa-trash"></i></a>
+                                <a class="btn btn-warning" href="#" title="Editar"><i class="fa-solid fa-pen"></i></a>
                             </td>
 
                         </tr>

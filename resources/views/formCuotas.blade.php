@@ -17,6 +17,14 @@
         @csrf
 
         <div class="col-md-6">
+            <label for="cliente" class="form-label">Clientes:</label>
+            <select class="form-select" name="cliente">
+                @foreach ($clientes as $cliente)
+                    <option value="{{ $cliente->cif }}">{{ $cliente->nombre_apellidos }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-6">
             <label class="form-label">Concepto</label>
             <input class="form-control" type="text" name="concepto" value="{{ old('concepto') }}">
             {!! $errors->first('concepto', '<span style="color: red;">:message</span>') !!}<br>

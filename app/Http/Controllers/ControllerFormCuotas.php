@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cuota;
+use App\Models\Cliente;
 
 class ControllerFormCuotas extends Controller
 {
@@ -16,11 +17,14 @@ class ControllerFormCuotas extends Controller
     public function formInsertarCuota(Request $request)
     {
         //
-        return view('formCuotas');
+        $clientes=Cliente::all();
+        return view('formCuotas', compact('clientes') );
+
     }
 
     public function validacion(){
         $dataValidate = request()->validate([
+        'cliente'=>'required',
         'concepto'=>'required',
         'fecha_emision'=>'required|after:now',
         'importe'=>'required|numeric',
@@ -33,8 +37,15 @@ class ControllerFormCuotas extends Controller
     Cuota::create($dataValidate);
 
     session()->flash('message', 'La cuota ha sido registrado correctamente.');
-    return view('formCuotas');
+    return redirect()->route('listaCuotas');
 
+    }
+
+    public function listarCuotas()
+    {
+        $cuotas = Cuota::orderBy('fecha_emision', 'desc')->paginate(5);
+
+        return view('listaCuotas', compact('cuotas'));
     }
 
 }

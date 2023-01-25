@@ -48,6 +48,10 @@
             <td>{{ $tarea->provincia }}</td>
         </tr>
         <tr>
+            <th>Estado</th>
+            <td>{{ $tarea->estado }}</td>
+        </tr>
+        <tr>
             <th>Operario Encargado</th>
             <td>{{ $tarea->operario_encargado }}</td>
         </tr>
@@ -57,11 +61,11 @@
         </tr>
         <tr>
             <th>Anotaciones anteriores</th>
-            <td></td>
+            <td>{{ $tarea->anotaciones_anteriores }}</td>
         </tr>
         <tr>
             <th>Anotaciones posteriores</th>
-            <td></td>
+            <td>{{ $tarea->anotaciones_posteriores }}</td>
         </tr>
 
     </table>

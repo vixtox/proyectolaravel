@@ -39,6 +39,7 @@
                         <th scope="col">Población</th>
                         <th scope="col">Código postal</th>
                         <th scope="col">Provincia</th>
+                        <th scope="col">Estado</th>
                         <th scope="col">Operario Encargado</th>
                         <th scope="col">Fecha de realización</th>
                         <th scope="col">Opciones</th>
@@ -55,13 +56,13 @@
                             <td>{{ $tarea->poblacion }}</td>
                             <td>{{ $tarea->codigo_postal }}</td>
                             <td>{{ $tarea->provincia }}</td>
+                            <td>{{ $tarea->estado }}</td>
                             <td>{{ $tarea->operario_encargado }}</td>
                             <td>{{ date('d-m-Y', strtotime($tarea->fecha_realizacion)) }}</td>
                             <td>
-                                <a class="btn btn-danger" href="{{ route('confirmarBorrar', $tarea) }}">Borrar</a>
-                                &nbsp;&nbsp;
-                                <a class="btn btn-warning" href="#">Modificar</a>
-                                <a class="btn btn-primary" href="{{ route('detallesTarea', $tarea) }}">Ver detalles</a>
+                                <a class="btn btn-danger" href="{{ route('confirmarBorrar', $tarea) }}" title="Borrar"><i class="fa-solid fa-trash"></i></a>
+                                <a class="btn btn-warning" href="{{ route('formEditarTarea', $tarea) }}" title="Editar"><i class="fa-solid fa-pen"></i></a>
+                                <a class="btn btn-primary" href="{{ route('detallesTarea', $tarea) }}" title="Detalles"><i class="fa-solid fa-eye"></i></a>
                             </td>
 
                         </tr>

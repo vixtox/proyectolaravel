@@ -24,6 +24,7 @@
 
 <body>
 
+  
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Menu</a>
@@ -59,13 +60,13 @@
         </div>
     </nav>
 
-    <br>
 
     @yield('contenido')
 
     <br>
 
     <footer class="bg-dark text-center text-white">
+      <br>
         <!-- Grid container -->
         <div class="container p-4">
           <!-- Section: Social media -->
@@ -103,7 +104,7 @@
           <!-- Section: Social media -->
       
         <div class="text-center p-3" style="background-color: rgb(0, 0, 0, 0.2);">
-          <p class="text-white">© 2022 Copyright: Víctor Martínez Domínguez</p>
+          <p class="text-white">© 2022 Copyright: NOSECAEN S.A</p>
         </div>
 
         <br><br><br>

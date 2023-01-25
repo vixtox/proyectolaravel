@@ -9,5 +9,5 @@ class Cuota extends Model
 {
     protected $table='cuotas';
     public $timestamps = false;
-    protected $fillable = ['concepto', 'fecha_emision', 'importe', 'pagada', 'fecha_pago', 'notas'];
+    protected $fillable = ['cliente', 'concepto', 'fecha_emision', 'importe', 'pagada', 'fecha_pago', 'notas'];
 }

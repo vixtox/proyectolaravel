@@ -43,6 +43,8 @@ Route::get('/listaTareas', [ControllerFormInsertarTarea::class, 'listarTareas'])
 
 Route::get('/listaEmpleados', [ControllerFormRegEmpleados::class, 'listarEmpleados'])->name('listaEmpleados');
 
+Route::get('/listaCuotas', [ControllerFormCuotas::class, 'listarCuotas'])->name('listaCuotas');
+
 Route::get('/listaClientes', [ControllerFormRegClientes::class, 'listarClientes'])->name('listaClientes');
 
 Route::get('/confirmarBorrar/{tarea}', [ControllerFormInsertarTarea::class, 'confirmarBorrar'])->name('confirmarBorrar');
@@ -52,3 +54,7 @@ Route::get('/confirmarBorrarEmpleado/{empleado}', [ControllerFormRegEmpleados::c
 Route::get('/confirmarBorrarCliente/{cliente}', [ControllerFormRegClientes::class, 'confirmarBorrarCliente'])->name('confirmarBorrarCliente');
 
 Route::get('/detallesTarea/{tarea}', [ControllerFormInsertarTarea::class, 'detallesTarea'])->name('detallesTarea');
+
+Route::get('/formEditarTarea/{tarea}', [ControllerFormInsertarTarea::class, 'formEditarTarea'])->name('formEditarTarea');
+
+Route::post('editarTarea/{tarea}', [ControllerFormInsertarTarea::class, 'update'])->name('editarTarea');
