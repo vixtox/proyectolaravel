@@ -20,7 +20,7 @@
             <td>{{ $tarea->cliente }}</td>
         </tr>
         <tr>
-            <th>Nombre y Apellidos</th>
+            <th>Nombre y apellidos</th>
             <td>{{ $tarea->nombre_apellidos }}</td>
         </tr>
         <tr>
@@ -40,7 +40,7 @@
             <td>{{ $tarea->poblacion }}</td>
         </tr>
         <tr>
-            <th>Código Postal</th>
+            <th>Código postal</th>
             <td>{{ $tarea->codigo_postal }}</td>
         </tr>
         <tr>
@@ -52,11 +52,15 @@
             <td>{{ $tarea->estado }}</td>
         </tr>
         <tr>
-            <th>Operario Encargado</th>
+            <th>Operario encargado</th>
             <td>{{ $tarea->operario_encargado }}</td>
         </tr>
         <tr>
-            <th>Fecha de Realizacion</th>
+            <th>Fecha de creación</th>
+            <td>{{ date('d-m-Y', strtotime($tarea->fecha_creacion)) }}</td>
+        </tr>
+        <tr>
+            <th>Fecha de realizacion</th>
             <td>{{ date('d-m-Y', strtotime($tarea->fecha_realizacion)) }}</td>
         </tr>
         <tr>

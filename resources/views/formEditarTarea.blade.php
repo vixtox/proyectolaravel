@@ -106,6 +106,12 @@
         </div>
         <br>
         <div class="col-md-6">
+            <label for="" class="form-label">Fecha de creación</label>
+            <span type="text" name="fecha_creacion" class="form-control" id="fecha_creacion"
+                placeholder="fecha_creacion">{{ date('d-m-Y', strtotime($tarea->fecha_creacion)) }}</span>
+        </div>
+        <br>
+        <div class="col-md-6">
             <label for="" class="form-label">Fecha de realización</label>
             <input class="form-control" type="date" name="fecha_realizacion"
                 value="{{ old('fecha_realizacion') ?? $tarea->fecha_realizacion }}">

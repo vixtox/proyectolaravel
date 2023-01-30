@@ -7,7 +7,7 @@ use App\Models\Pais;
 use App\Rules\cifValidarRule;
 use App\Models\Cliente;
 
-class ControllerFormRegClientes extends Controller
+class ControllerClientes extends Controller
 {
     /**
      * Handle the incoming request.
@@ -22,7 +22,7 @@ class ControllerFormRegClientes extends Controller
         return view('formRegistroClientes', compact('paises') );
     }
 
-    public function validacion(){
+    public function insertarCliente(){
         $dataValidate = request()->validate([
         'cif'=> ['required', new CifValidarRule],
         'nombre_apellidos'=>'required|min:5|max:50',

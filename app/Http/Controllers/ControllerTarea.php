@@ -8,7 +8,7 @@ use App\Models\Empleado;
 use App\Models\Provincia;
 use App\Models\Tarea;
 
-class ControllerFormInsertarTarea extends Controller
+class ControllerTarea extends Controller
 {
     /**
      * Handle the incoming request.
@@ -41,9 +41,9 @@ class ControllerFormInsertarTarea extends Controller
         return redirect()->route('listaTareas');
     }
 
-    public function confirmarBorrar(Tarea $tarea)
+    public function confirmarBorrarTarea(Tarea $tarea)
     {
-        return view('confirmarBorrar', compact('tarea'));
+        return view('confirmarBorrarTarea', compact('tarea'));
     }
 
     public function detallesTarea(Tarea $tarea)
@@ -52,7 +52,7 @@ class ControllerFormInsertarTarea extends Controller
         return view('detallesTarea', compact('tarea'));
     }
 
-    public function validacion(){
+    public function insertarTarea(){
 
         $dataValidate = request()->validate([
         'cliente'=>'required',
@@ -84,7 +84,7 @@ class ControllerFormInsertarTarea extends Controller
         return view('formEditarTarea', compact('clientes', 'empleados', 'provincias', 'tarea'));
     }
 
-    public function update(Tarea $tarea){
+    public function editarTarea(Tarea $tarea){
 
         $dataValidate = request()->validate([
         'cliente'=>'required',

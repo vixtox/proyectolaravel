@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cuota;
 use App\Models\Cliente;
 
-class ControllerFormCuotas extends Controller
+class ControllerCuotas extends Controller
 {
     /**
      * Handle the incoming request.
@@ -22,7 +22,7 @@ class ControllerFormCuotas extends Controller
 
     }
 
-    public function validacion(){
+    public function insertarCuota(){
         $dataValidate = request()->validate([
         'cliente'=>'required',
         'concepto'=>'required',
@@ -46,6 +46,18 @@ class ControllerFormCuotas extends Controller
         $cuotas = Cuota::orderBy('fecha_emision', 'desc')->paginate(5);
 
         return view('listaCuotas', compact('cuotas'));
+    }
+
+    public function borrarCuota(Cuota $cuota)
+    {
+        $cuota->delete();
+        session()->flash('message', 'La cuota ha sido borrada correctamente.');
+        return redirect()->route('listaCuotas');
+    }
+
+    public function confirmarBorrarCuota(Cuota $cuota)
+    {
+        return view('confirmarBorrarCuota', compact('cuota'));
     }
 
 }

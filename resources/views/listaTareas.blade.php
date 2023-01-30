@@ -60,7 +60,7 @@
                             <td>{{ $tarea->operario_encargado }}</td>
                             <td>{{ date('d-m-Y', strtotime($tarea->fecha_realizacion)) }}</td>
                             <td>
-                                <a class="btn btn-danger" href="{{ route('confirmarBorrar', $tarea) }}" title="Borrar"><i class="fa-solid fa-trash"></i></a>
+                                <a class="btn btn-danger" href="{{ route('confirmarBorrarTarea', $tarea) }}" title="Borrar"><i class="fa-solid fa-trash"></i></a>
                                 <a class="btn btn-warning" href="{{ route('formEditarTarea', $tarea) }}" title="Editar"><i class="fa-solid fa-pen"></i></a>
                                 <a class="btn btn-primary" href="{{ route('detallesTarea', $tarea) }}" title="Detalles"><i class="fa-solid fa-eye"></i></a>
                             </td>

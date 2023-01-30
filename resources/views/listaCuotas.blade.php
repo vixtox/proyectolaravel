@@ -51,11 +51,9 @@
                             <td>{{ $cuota->pagada }}</td>
                             <td>{{ $cuota->fecha_pago }}</td>
                             <td>{{ $cuota->notas }}</td>
-                            <!--<td>
+                            <td>
                                 <a class="btn btn-danger" href="{{ route('confirmarBorrarCuota', $cuota) }}" title="Borrar"><i class="fa-solid fa-trash"></i></a>
-                                <a class="btn btn-warning" href="{{ route('formEditarCuota', $cuota) }}" title="Editar"><i class="fa-solid fa-pen"></i></a>
-                                <a class="btn btn-primary" href="{{ route('detallesCuota', $cuota) }}" title="Detalles"><i class="fa-solid fa-eye"></i></a>
-                            </td>-->
+                             </td>
 
                         </tr>
                     @endforeach

@@ -7,7 +7,7 @@ use App\Rules\dniValidarRule;
 use App\Models\Empleado;
 
 
-class ControllerFormRegEmpleados extends Controller
+class ControllerEmpleados extends Controller
 {
     /**
      * Handle the incoming request.
@@ -21,7 +21,7 @@ class ControllerFormRegEmpleados extends Controller
         return view('formRegistroEmpleados');
     }
 
-    public function validacion(){
+    public function insertarEmpleado(){
         $dataValidate = request()->validate([
         'dni'=> ['required', new DniValidarRule],
         'nombre_apellidos'=>'required|min:5|max:50',
@@ -35,7 +35,8 @@ class ControllerFormRegEmpleados extends Controller
     Empleado::create($dataValidate);
 
     session()->flash('message', 'El empleado ha sido registrado correctamente.');
-    return redirect()->route('registroEmpleado');
+    $empleados = Empleado::orderBy('fecha_alta', 'desc')->paginate(5);
+    return redirect()->route('listaEmpleados', compact('empleados'));
 
     }
 
@@ -56,6 +57,31 @@ class ControllerFormRegEmpleados extends Controller
     public function confirmarBorrarEmpleado(Empleado $empleado)
     {
         return view('confirmarBorrarEmpleado', compact('empleado'));
+    }
+
+    public function formEditarEmpleado(Empleado $empleado)
+    {
+        return view('formEditarEmpleado', compact('empleado'));
+    }
+
+    public function editarEmpleado(Empleado $empleado){
+    
+        $dataValidate = request()->validate([
+            'dni'=> ['required', new DniValidarRule],
+            'nombre_apellidos'=>'required|min:5|max:50',
+            'correo'=>'required|email',
+            'telefono'=> 'required|regex:/^(?:(?:\+?[0-9]{2,4})?[ ]?[6789][0-9 ]{8,13})$/',
+            'direccion'=>'required',
+            'fecha_alta'=>'required|after:now',
+            'es_admin'=>'required'
+        ]);
+
+
+    Empleado::where('id', $empleado->id)->update($dataValidate);
+
+    session()->flash('message', 'El empleado ha sido actualizado correctamente.');
+    return redirect()->route('listaEmpleados');
+
     }
 
 }

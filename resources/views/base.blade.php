@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/94d5779c24.js" crossorigin="anonymous"></script>    
-    
+    <script src="https://kit.fontawesome.com/94d5779c24.js" crossorigin="anonymous"></script>
+
     <title>@yield('titulo')</title>
     <style>
         #formulario,
@@ -16,15 +16,26 @@
             margin-left: 5em;
             margin-right: 5em;
         }
-        #boton, h3 {
+
+        #boton,
+        h3 {
             text-align: center;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap%27');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Yanone Kaffeesatz', sans-serif;
         }
     </style>
 </head>
 
 <body>
 
-  
+
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Menu</a>
@@ -50,11 +61,14 @@
                         <a class="nav-link" href="{{ route('listaTareas') }}">Listar tareas</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{{ route('listaEmpleados') }}">Listar empleados</a>
+                        <a class="nav-link" href="{{ route('listaEmpleados') }}">Listar empleados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('listaClientes') }}">Listar clientes</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ route('listaCuotas') }}">Listar cuotas</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ route('listaClientes') }}">Listar clientes</a>
-                </li>
                 </ul>
             </div>
         </div>
@@ -66,50 +80,44 @@
     <br>
 
     <footer class="bg-dark text-center text-white">
-      <br>
+        <br>
         <!-- Grid container -->
         <div class="container p-4">
-          <!-- Section: Social media -->
-          <section class="mb-4">
-            <!-- Facebook -->
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-              ><i class="fab fa-facebook-f"></i
-            ></a>
-      
-            <!-- Twitter -->
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-              ><i class="fab fa-twitter"></i
-            ></a>
-      
-            <!-- Google -->
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-              ><i class="fab fa-google"></i
-            ></a>
-      
-            <!-- Instagram -->
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-              ><i class="fab fa-instagram"></i
-            ></a>
-      
-            <!-- Linkedin -->
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-              ><i class="fab fa-linkedin-in"></i
-            ></a>
-      
-            <!-- Github -->
-            <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/vixtox/proyectolaravel.git" role="button"
-              ><i class="fab fa-github"></i
-            ></a>
-          </section>
-          <!-- Section: Social media -->
-      
-        <div class="text-center p-3" style="background-color: rgb(0, 0, 0, 0.2);">
-          <p class="text-white">© 2022 Copyright: NOSECAEN S.A</p>
-        </div>
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                        class="fab fa-facebook-f"></i></a>
 
-        <br><br><br>
-      
-      </footer>
+                <!-- Twitter -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                        class="fab fa-twitter"></i></a>
+
+                <!-- Google -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                        class="fab fa-google"></i></a>
+
+                <!-- Instagram -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                        class="fab fa-instagram"></i></a>
+
+                <!-- Linkedin -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                        class="fab fa-linkedin-in"></i></a>
+
+                <!-- Github -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/vixtox/proyectolaravel.git"
+                    role="button"><i class="fab fa-github"></i></a>
+            </section>
+            <!-- Section: Social media -->
+
+            <div class="text-center p-3" style="background-color: rgb(0, 0, 0, 0.2);">
+                <p class="text-white">© 2022 Copyright: NOSECAEN S.A</p>
+            </div>
+
+            <br><br><br>
+
+    </footer>
 
 
 </body>
