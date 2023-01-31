@@ -23,7 +23,6 @@ class ControllerTarea extends Controller
         $empleados=Empleado::all();
         $provincias=Provincia::all();
         return view('formInsertarTarea', compact('clientes', 'empleados', 'provincias') );
-     
     
     }
 
@@ -55,7 +54,7 @@ class ControllerTarea extends Controller
     public function insertarTarea(){
 
         $dataValidate = request()->validate([
-        'cliente'=>'required',
+        'clientes_id'=>'required',
         'nombre_apellidos'=>'required|min:3|max:50',
         'descripcion'=>'required',
         'correo'=>'required|email',
@@ -65,7 +64,7 @@ class ControllerTarea extends Controller
         'codigo_postal' => ['required', 'regex:/^(0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$/'],
         'provincia'=>'required',
         'estado'=>'required',
-        'operario_encargado'=>'required',
+        'empleados_id'=>'required',
         'fecha_realizacion'=>'required|after:now'
     ]);
 
@@ -87,7 +86,7 @@ class ControllerTarea extends Controller
     public function editarTarea(Tarea $tarea){
 
         $dataValidate = request()->validate([
-        'cliente'=>'required',
+        'clientes_id'=>'required',
         'nombre_apellidos'=>'required|min:3|max:50',
         'descripcion'=>'required',
         'correo'=>'required|email',
@@ -97,7 +96,7 @@ class ControllerTarea extends Controller
         'codigo_postal' => ['required', 'regex:/^(0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$/'],
         'provincia'=>'required',
         'estado'=>'required',
-        'operario_encargado'=>'required',
+        'empleados_id'=>'required',
         'fecha_realizacion'=>'required|after:now',
         'anotaciones_anteriores'=>'',
         'anotaciones_posteriores'=>''

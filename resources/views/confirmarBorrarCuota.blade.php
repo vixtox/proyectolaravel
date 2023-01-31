@@ -25,7 +25,13 @@
                 <tbody>
 
                     <tr>
-                        <td>{{ $cuota->cliente }}</td>
+                        <td>
+                            @if ($cuota->cliente)
+                                {{ $cuota->cliente->cif }}
+                            @else
+                                Cliente dado de baja
+                            @endif
+                        </td>
                         <td>{{ $cuota->concepto }}</td>
                         <td>{{ $cuota->fecha_emision }}</td>
                         <td>{{ $cuota->importe }}</td>

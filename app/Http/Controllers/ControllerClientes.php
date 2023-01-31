@@ -37,7 +37,7 @@ class ControllerClientes extends Controller
     Cliente::create($dataValidate);
 
     session()->flash('message', 'El cliente ha sido registrado correctamente.');
-    return redirect()->route('registroCliente');
+    return redirect()->route('listaClientes');
 
     }
 

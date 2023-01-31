@@ -17,10 +17,10 @@
         @csrf
 
         <div class="col-md-6">
-            <label for="cliente" class="form-label">Clientes:</label>
-            <select class="form-select" name="cliente">
+            <label for="clientes_id" class="form-label">Clientes:</label>
+            <select class="form-select" name="clientes_id">
                 @foreach ($clientes as $cliente)
-                    <option value="{{ $cliente->cif }}">{{ $cliente->nombre_apellidos }}</option>
+                    <option value="{{ $cliente->id }}">{{ $cliente->nombre_apellidos }}</option>
                 @endforeach
             </select>
         </div>

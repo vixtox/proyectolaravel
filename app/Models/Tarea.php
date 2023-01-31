@@ -13,8 +13,18 @@ class Tarea extends Model
     protected $table='tareas';
     public $timestamps = false;
     protected $fillable = [
-        'cliente', 'nombre_apellidos', 'telefono', 'correo', 'descripcion', 'direccion',
-        'poblacion','codigo_postal' ,'provincia' ,'estado' ,'operario_encargado', 'fecha_realizacion'
+        'clientes_id', 'nombre_apellidos', 'telefono', 'correo', 'descripcion', 'direccion',
+        'poblacion','codigo_postal' ,'provincia' ,'estado' ,'empleados_id', 'fecha_realizacion'
     ];
+
+    public function cliente()
+    {
+        return $this->belongsTo('App\Models\Cliente', 'clientes_id');
+    }
+
+    public function empleado()
+    {
+        return $this->belongsTo('App\Models\Empleado', 'empleados_id');
+    }
 
 }

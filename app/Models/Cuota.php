@@ -12,5 +12,10 @@ class Cuota extends Model
 
     protected $table='cuotas';
     public $timestamps = false;
-    protected $fillable = ['cliente', 'concepto', 'fecha_emision', 'importe', 'pagada', 'fecha_pago', 'notas'];
+    protected $fillable = ['clientes_id', 'concepto', 'fecha_emision', 'importe', 'pagada', 'fecha_pago', 'notas'];
+
+    public function cliente()
+    {
+        return $this->belongsTo('App\Models\Cliente', 'clientes_id');
+    }
 }

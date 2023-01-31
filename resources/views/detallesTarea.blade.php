@@ -17,7 +17,13 @@
         </tr>
         <tr>
             <th>Cliente</th>
-            <td>{{ $tarea->cliente }}</td>
+            <td>
+                @if ($tarea->cliente)
+                    {{ $tarea->cliente->cif }}
+                @else
+                    Cliente dado de baja
+                @endif
+            </td>
         </tr>
         <tr>
             <th>Nombre y apellidos</th>
@@ -53,7 +59,13 @@
         </tr>
         <tr>
             <th>Operario encargado</th>
-            <td>{{ $tarea->operario_encargado }}</td>
+            <td>
+                @if ($tarea->empleado)
+                    {{ $tarea->empleado->dni }}
+                @else
+                    Operario dado de baja
+                @endif
+            </td>
         </tr>
         <tr>
             <th>Fecha de creación</th>

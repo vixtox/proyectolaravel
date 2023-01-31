@@ -28,7 +28,13 @@
                 <tbody>
 
                     <tr>
-                        <td>{{ $tarea->cliente }}</td>
+                        <td>
+                            @if ($tarea->cliente)
+                                {{ $tarea->cliente->cif }}
+                            @else
+                                Cliente dado de baja
+                            @endif
+                        </td>
                         <td>{{ $tarea->nombre_apellidos }}</td>
                         <td>{{ $tarea->telefono }}</td>
                         <td>{{ $tarea->descripcion }}</td>
@@ -36,7 +42,13 @@
                         <td>{{ $tarea->poblacion }}</td>
                         <td>{{ $tarea->codigo_postal }}</td>
                         <td>{{ $tarea->provincia }}</td>
-                        <td>{{ $tarea->operario_encargado }}</td>
+                        <td>
+                            @if ($tarea->empleado)
+                                {{ $tarea->empleado->dni }}
+                            @else
+                                Operario dado de baja
+                            @endif
+                        </td>
                         <td>{{ date('d-m-Y', strtotime($tarea->fecha_realizacion)) }}</td>
                     </tr>
 

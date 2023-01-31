@@ -24,7 +24,7 @@ class ControllerCuotas extends Controller
 
     public function insertarCuota(){
         $dataValidate = request()->validate([
-        'cliente'=>'required',
+        'clientes_id'=>'required',
         'concepto'=>'required',
         'fecha_emision'=>'required|after:now',
         'importe'=>'required|numeric',
