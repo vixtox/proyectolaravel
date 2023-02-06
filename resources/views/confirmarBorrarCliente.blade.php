@@ -32,7 +32,7 @@
                         <td>{{ $cliente->telefono }}</td>
                         <td>{{ $cliente->iban }}</td>
                         <td>{{ $cliente->cuota }}</td>
-                        <td>{{ $cliente->pais }}</td>
+                        <td>{{ $cliente->pais->iso3 }}</td>
                         <td>{{ $cliente->moneda }}</td>
                     </tr>
 

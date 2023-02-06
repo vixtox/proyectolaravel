@@ -51,7 +51,7 @@
                             <td>{{ $cliente->telefono }}</td>
                             <td>{{ $cliente->iban }}</td>
                             <td>{{ $cliente->cuota }}</td>
-                            <td>{{ $cliente->pais }}</td>
+                            <td>{{ $cliente->pais->iso3 }}</td>
                             <td>{{ $cliente->moneda }}</td>
                             <td>
                                 <a class="btn btn-danger" href="{{ route('confirmarBorrarCliente', $cliente) }}" title="Borrar"><i class="fa-solid fa-trash"></i></a>

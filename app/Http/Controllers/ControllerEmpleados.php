@@ -25,10 +25,11 @@ class ControllerEmpleados extends Controller
         $dataValidate = request()->validate([
         'dni'=> ['required', new DniValidarRule],
         'nombre_apellidos'=>'required|min:5|max:50',
+        'clave'=>'required',
         'correo'=>'required|email',
         'telefono'=> 'required|regex:/^(?:(?:\+?[0-9]{2,4})?[ ]?[6789][0-9 ]{8,13})$/',
         'direccion'=>'required',
-        'fecha_alta'=>'required|after:now',
+        'fecha_alta'=>'required',
         'es_admin'=>'required'
     ]);
 
@@ -69,10 +70,11 @@ class ControllerEmpleados extends Controller
         $dataValidate = request()->validate([
             'dni'=> ['required', new DniValidarRule],
             'nombre_apellidos'=>'required|min:5|max:50',
+            'clave'=>'required',
             'correo'=>'required|email',
             'telefono'=> 'required|regex:/^(?:(?:\+?[0-9]{2,4})?[ ]?[6789][0-9 ]{8,13})$/',
             'direccion'=>'required',
-            'fecha_alta'=>'required|after:now',
+            'fecha_alta'=>'required',
             'es_admin'=>'required'
         ]);
 

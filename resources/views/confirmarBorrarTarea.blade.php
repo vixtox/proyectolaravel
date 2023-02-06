@@ -14,7 +14,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">Cliente</th>
-                        <th scope="col">Nombre y Apellidos</th>
+                        <th scope="col">Persona contacto</th>
                         <th scope="col">Teléfono</th>
                         <th scope="col">Descripción</th>
                         <th scope="col">Dirección</th>
@@ -41,7 +41,7 @@
                         <td>{{ $tarea->direccion }}</td>
                         <td>{{ $tarea->poblacion }}</td>
                         <td>{{ $tarea->codigo_postal }}</td>
-                        <td>{{ $tarea->provincia }}</td>
+                        <td>{{ $tarea->provincia->nombre }}</td>
                         <td>
                             @if ($tarea->empleado)
                                 {{ $tarea->empleado->dni }}

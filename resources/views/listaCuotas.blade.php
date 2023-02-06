@@ -55,7 +55,11 @@
                             <td>{{ $cuota->fecha_emision }}</td>
                             <td>{{ $cuota->importe }}</td>
                             <td>{{ $cuota->pagada }}</td>
-                            <td>{{ $cuota->fecha_pago }}</td>
+                            <td>
+                                @if ($cuota->fecha_pago)
+                                    {{ date('d-m-Y', strtotime($cuota->fecha_pago)) }}
+                                @endif
+                            </td>
                             <td>{{ $cuota->notas }}</td>
                             <td>
                                 <a class="btn btn-danger" href="{{ route('confirmarBorrarCuota', $cuota) }}" title="Borrar"><i class="fa-solid fa-trash"></i></a>

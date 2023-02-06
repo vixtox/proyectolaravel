@@ -17,8 +17,8 @@
         <label for="clientes_id" class="form-label"><b>Clientes</b></label>
         <select class="form-select" name="clientes_id">
             @foreach ($clientes as $cliente)
-                <option value="{{ $cliente->id }}" {{ old('clientes_id') == $cliente->id ? 'selected' : '' }}>
-                    {{ $cliente->nombre_apellidos }}</option>
+            <option value="{{ $cliente->id }}" {{ old('clientes_id')==$cliente->id ? 'selected' : '' }}>
+                {{ $cliente->nombre_apellidos }}</option>
             @endforeach
         </select>
     </div>
@@ -69,11 +69,11 @@
     </div>
     <br>
     <div class="col-md-6">
-        <label for="provincia" class="form-label"><b>Provincias</b></label>
-        <select class="form-select" name="provincia">
+        <label for="provincias_id" class="form-label"><b>Provincias</b></label>
+        <select class="form-select" name="provincias_id">
             @foreach ($provincias as $provincia)
-            <option value="{{ $provincia->cod }}" {{ old('provincia')==$provincia->cod || (old('provincia') == null &&
-                $tarea->provincia == $provincia->cod) ? 'selected' : '' }}>
+            <option value="{{ $provincia->id }}" {{ old('provincias_id')==$provincia->id || (old('provincias_id') == null &&
+                $tarea->provincias_id == $provincia->id) ? 'selected' : '' }}>
                 {{ $provincia->nombre }}</option>
             @endforeach
         </select>
@@ -98,11 +98,11 @@
         <label for="empleados_id" class="form-label"><b>Operario encargado</b></label>
         <select class="form-select" name="empleados_id">
             @foreach ($empleados as $empleado)
-                @if ($empleado->es_admin == 0)
-                    <option value="{{ $empleado->id }}" {{ old('empleados_id') == $empleado->id ? 'selected' : '' }}>
-                        {{ $empleado->nombre_apellidos }}
-                    </option>
-                @endif
+            @if ($empleado->es_admin == 0)
+            <option value="{{ $empleado->id }}" {{ old('empleados_id')==$empleado->id || (old('empleados_id') == null &&
+                $tarea->empleados_id == $empleado->id) ? 'selected' : '' }}>
+                {{ $empleado->nombre_apellidos }}</option>
+            @endif
             @endforeach
         </select>
     </div>

@@ -20,7 +20,7 @@
             <label for="clientes_id" class="form-label">Clientes:</label>
             <select class="form-select" name="clientes_id">
                 @foreach ($clientes as $cliente)
-                    <option value="{{ $cliente->id }}">{{ $cliente->nombre_apellidos }}</option>
+                    <option value="{{ $cliente->id }}" {{ old('clientes_id')==$cliente->id ? 'selected' : '' }}>{{ $cliente->nombre_apellidos }}</option>
                 @endforeach
             </select>
         </div>
@@ -47,9 +47,9 @@
         <div class="col-md-6">
             <label>Pagada</label><br>
             <label>Sí</label>
-            <input type="radio" name="pagada" value="1" {{ old('pagada') == '1' ? 'checked' : '' }}>
+            <input type="radio" name="pagada" value="SI" {{ old('pagada') == 'SI' ? 'checked' : '' }}>
             <label>No</label>
-            <input type="radio" name="pagada" value="0" {{ old('pagada') == '0' ? 'checked' : '' }}>
+            <input type="radio" name="pagada" value="NO" {{ old('pagada') == 'NO' ? 'checked' : '' }}>
             {!! $errors->first('pagada', '<span style="color: red;">:message</span>') !!}
         </div>
         <div class="col-md-6">

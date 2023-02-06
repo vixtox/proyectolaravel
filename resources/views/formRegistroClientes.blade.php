@@ -5,17 +5,17 @@
 @section('contenido')
 
 
-<div class="cabecera">
-    <h3>Formulario registro cliente</h3>
-    @if (session()->has('message'))
-        <div class="alert alert-success">
-            {{ session()->get('message') }}
-        </div>
-    @endif
-</div>
-   
+    <div class="cabecera">
+        <h3>Formulario registro cliente</h3>
+        @if (session()->has('message'))
+            <div class="alert alert-success">
+                {{ session()->get('message') }}
+            </div>
+        @endif
+    </div>
 
-    <form action="{{ route('registroCliente') }}"  method="post" class="row g-3" id="formulario">
+
+    <form action="{{ route('registroCliente') }}" method="post" class="row g-3" id="formulario">
         @csrf
 
         <div class="col-md-6">
@@ -53,28 +53,32 @@
         </div>
 
         <div class="col-md-6">
-            <label for="paises" class="form-label"><b>Países</b></label>
-            <select class="form-select" name="pais">
+            <label for="paises_id" class="form-label">País</label>
+            <select class="form-select" name="paises_id">
                 @foreach ($paises as $pais)
-                    <option value="{{ $pais->iso3 }}">{{ $pais->nombre }}</option>
+                  <option value="{{ $pais->id }}" {{ old('paises_id') == $pais->id ? 'selected' : '' }}>{{ $pais->nombre }}</option>
                 @endforeach
-            </select>
+              </select>
         </div>
+
         <div class="col-md-6">
-            <label for="paises" class="form-label"><b>Monedas</b></label>
+            <label for="moneda" class="form-label">Moneda</label>
             <select class="form-select" name="moneda">
                 <?php $monedasMostradas = []; ?>
                 @foreach ($paises as $pais)
-                    @if ($pais->nombre_moneda == null)
+                    @if ($pais->iso_moneda == null)
                     @else
-                        @if (!in_array($pais->nombre_moneda, $monedasMostradas))
-                            <?php array_push($monedasMostradas, $pais->nombre_moneda); ?>
-                            <option value="{{ $pais->nombre_moneda }}">{{ $pais->nombre_moneda }}</option>
+                        @if (!in_array($pais->iso_moneda, $monedasMostradas))
+                            <?php array_push($monedasMostradas, $pais->iso_moneda); ?>
+                            <option value="{{ $pais->iso_moneda }}"
+                                {{ old('moneda') == $pais->iso_moneda ? 'selected' : '' }}>{{ $pais->nombre_moneda }}
+                            </option>
                         @endif
                     @endif
                 @endforeach
-            </select><br>
+            </select>
         </div>
+
         <div id="boton" class="col-md-12">
             <button class="btn btn-primary" type="submit" name="enviar">Enviar</button>
         </div>

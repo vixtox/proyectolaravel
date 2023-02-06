@@ -26,13 +26,12 @@ class ControllerCuotas extends Controller
         $dataValidate = request()->validate([
         'clientes_id'=>'required',
         'concepto'=>'required',
-        'fecha_emision'=>'required|after:now',
+        'fecha_emision'=>'required',
         'importe'=>'required|numeric',
-        'pagada'=>'required',
-        'fecha_pago'=>'required|after:now',
+        'pagada'=>'',
+        'fecha_pago'=>'',
         'notas'=>'required'
     ]);
-
     
     Cuota::create($dataValidate);
 
@@ -58,6 +57,29 @@ class ControllerCuotas extends Controller
     public function confirmarBorrarCuota(Cuota $cuota)
     {
         return view('confirmarBorrarCuota', compact('cuota'));
+    }
+
+    // Remesa Mensual:
+
+    public function validarInsertar()
+    {
+        $data = request()->validate([
+            'concepto' => 'required',
+            'fecha_emision' => 'required',
+            'notas' => 'required',
+        ]);
+
+        $clientes = Cliente::all();
+
+        foreach ($clientes as $cliente) {
+            $data['clientes_id'] = $cliente->id;
+            $data['importe'] = $cliente->cuota_mensual;
+            Cuota::create($data);
+        }
+
+        session()->flash('message', 'La cuota ha sido creada correctamente.');
+
+        return redirect()->route('formCuotas');
     }
 
 }

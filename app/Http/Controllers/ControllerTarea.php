@@ -62,7 +62,7 @@ class ControllerTarea extends Controller
         'direccion'=>'required',
         'poblacion'=>'required',
         'codigo_postal' => ['required', 'regex:/^(0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$/'],
-        'provincia'=>'required',
+        'provincias_id'=>'required',
         'estado'=>'required',
         'empleados_id'=>'required',
         'fecha_realizacion'=>'required|after:now'
@@ -94,7 +94,7 @@ class ControllerTarea extends Controller
         'direccion'=>'required',
         'poblacion'=>'required',
         'codigo_postal' => ['required', 'regex:/^(0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$/'],
-        'provincia'=>'required',
+        'provincias_id'=>'required',
         'estado'=>'required',
         'empleados_id'=>'required',
         'fecha_realizacion'=>'required|after:now',

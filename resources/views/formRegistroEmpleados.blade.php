@@ -27,6 +27,11 @@
             {!! $errors->first('dni', '<span style="color: red;">:message</span>') !!}
         </div>
         <div class="col-md-6">
+            <label class="form-label"><b>Clave</b></label>
+            <input class="form-control" type="text" name="clave" value="{{ old('clave') }}">
+            {!! $errors->first('clave', '<span style="color: red;">:message</span>') !!}
+        </div>
+        <div class="col-md-6">
             <label class="form-label"><b>Correo</b></label>
             <div class="input-group">
                 <span class="input-group-text" id="inputGroupPrepend2">@</span>
@@ -50,7 +55,7 @@
             {!! $errors->first('fecha_alta', '<span style="color: red;">:message</span>') !!}
         </div>
         <div class="col-md-6">
-            <label class="form-label"><b>Tipo</b></label><br>
+            <label class="form-label"><b>Tipo</b></label>
             <label class="form-label">Admin</label>
             <input class="form-check-input" type="radio" name="es_admin" value="1"
                 {{ old('es_admin') == '1' ? 'checked' : '' }}>&nbsp;

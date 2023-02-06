@@ -28,6 +28,13 @@
         </div>
         <br>
         <div class="col-md-6">
+            <label for="" class="form-label">Clave</label>
+            <input class="form-control" type="text" name="clave"
+                value="{{ old('clave') ?? $empleado->clave }}">
+            {!! $errors->first('clave', '<span style="color: red;">:message</span>') !!}
+        </div>
+        <br>
+        <div class="col-md-6">
             <label for="" class="form-label">Correo</label>
             <input class="form-control" type="text" name="correo" value="{{ old('correo') ?? $empleado->correo }}">
             {!! $errors->first('correo', '<span style="color: red;">:message</span>') !!}
@@ -55,11 +62,11 @@
         <div>
             <label for="es_admin" class="form-label">Tipo de empleado:</label>
             <br>
-            <input class="form-check-input" type="radio" name="es_admin" value="1"
-                {{ old('es_admin', $empleado->es_admin) == '1' ? 'checked' : '' }}> Operario
-            <br>
             <input class="form-check-input" type="radio" name="es_admin" value="0"
-                {{ old('es_admin', $empleado->es_admin) == '0' ? 'checked' : '' }}> Administrador
+                {{ old('es_admin', $empleado->es_admin) == '0' ? 'checked' : '' }}> Operario
+            <br>
+            <input class="form-check-input" type="radio" name="es_admin" value="1"
+                {{ old('es_admin', $empleado->es_admin) == '1' ? 'checked' : '' }}> Administrador
         </div>
         <div id="boton" class="col-md-12">
             <button type="submit" class="btn btn-primary">Enviar</button>

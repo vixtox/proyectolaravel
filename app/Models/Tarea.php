@@ -14,7 +14,7 @@ class Tarea extends Model
     public $timestamps = false;
     protected $fillable = [
         'clientes_id', 'nombre_apellidos', 'telefono', 'correo', 'descripcion', 'direccion',
-        'poblacion','codigo_postal' ,'provincia' ,'estado' ,'empleados_id', 'fecha_realizacion'
+        'poblacion','codigo_postal' ,'provincias_id' ,'estado' ,'empleados_id', 'fecha_realizacion'
     ];
 
     public function cliente()
@@ -25,6 +25,11 @@ class Tarea extends Model
     public function empleado()
     {
         return $this->belongsTo('App\Models\Empleado', 'empleados_id');
+    }
+
+    public function provincia()
+    {
+        return $this->belongsTo('App\Models\Provincia', 'provincias_id');
     }
 
 }

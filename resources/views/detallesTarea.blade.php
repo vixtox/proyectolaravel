@@ -26,7 +26,7 @@
             </td>
         </tr>
         <tr>
-            <th>Nombre y apellidos</th>
+            <th>Persona contacto</th>
             <td>{{ $tarea->nombre_apellidos }}</td>
         </tr>
         <tr>
@@ -51,7 +51,7 @@
         </tr>
         <tr>
             <th>Provincias</th>
-            <td>{{ $tarea->provincia }}</td>
+            <td>{{ $tarea->provincia->nombre }}</td>
         </tr>
         <tr>
             <th>Estado</th>
@@ -61,7 +61,7 @@
             <th>Operario encargado</th>
             <td>
                 @if ($tarea->empleado)
-                    {{ $tarea->empleado->dni }}
+                    {{ $tarea->empleado->nombre_apellidos }}
                 @else
                     Operario dado de baja
                 @endif
