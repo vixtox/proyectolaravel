@@ -10,55 +10,88 @@
 
     <div id="cuerpo">
         <div class="table-responsive">
-            <table class="table">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Persona contacto</th>
-                        <th scope="col">Teléfono</th>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Dirección</th>
-                        <th scope="col">Población</th>
-                        <th scope="col">Código postal</th>
-                        <th scope="col">Provincia</th>
-                        <th scope="col">Operario Encargado</th>
-                        <th scope="col">Fecha de realización</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <tr>
-                        <td>
-                            @if ($tarea->cliente)
-                                {{ $tarea->cliente->cif }}
-                            @else
-                                Cliente dado de baja
-                            @endif
-                        </td>
-                        <td>{{ $tarea->nombre_apellidos }}</td>
-                        <td>{{ $tarea->telefono }}</td>
-                        <td>{{ $tarea->descripcion }}</td>
-                        <td>{{ $tarea->direccion }}</td>
-                        <td>{{ $tarea->poblacion }}</td>
-                        <td>{{ $tarea->codigo_postal }}</td>
-                        <td>{{ $tarea->provincia->nombre }}</td>
-                        <td>
-                            @if ($tarea->empleado)
-                                {{ $tarea->empleado->dni }}
-                            @else
-                                Operario dado de baja
-                            @endif
-                        </td>
-                        <td>{{ date('d-m-Y', strtotime($tarea->fecha_realizacion)) }}</td>
-                    </tr>
-
-                </tbody>
+            <table class="table table-bordered">
+                <tr>
+                    <thead class="table-dark">
+                        <th>Nombre campo</th>
+                        <th>Valor campo</th>
+                    </thead>
+                </tr>
+                <tr>
+                    <th>Cliente</th>
+                    <td>
+                        @if ($tarea->cliente)
+                            {{ $tarea->cliente->cif }}
+                        @else
+                            Cliente dado de baja
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <th>Persona contacto</th>
+                    <td>{{ $tarea->nombre_apellidos }}</td>
+                </tr>
+                <tr>
+                    <th>Teléfono</th>
+                    <td>{{ $tarea->telefono }}</td>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>{{ $tarea->descripcion }}</td>
+                </tr>
+                <tr>
+                    <th>Dirección</th>
+                    <td>{{ $tarea->direccion }}</td>
+                </tr>
+                <tr>
+                    <th>Población</th>
+                    <td>{{ $tarea->poblacion }}</td>
+                </tr>
+                <tr>
+                    <th>Código postal</th>
+                    <td>{{ $tarea->codigo_postal }}</td>
+                </tr>
+                <tr>
+                    <th>Provincias</th>
+                    <td>{{ $tarea->provincia->nombre }}</td>
+                </tr>
+                <tr>
+                    <th>Estado</th>
+                    <td>{{ $tarea->estado }}</td>
+                </tr>
+                <tr>
+                    <th>Operario encargado</th>
+                    <td>
+                        @if ($tarea->empleado)
+                            {{ $tarea->empleado->nombre_apellidos }}
+                        @else
+                            Operario dado de baja
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <th>Fecha de creación</th>
+                    <td>{{ date('d-m-Y', strtotime($tarea->fecha_creacion)) }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha de realizacion</th>
+                    <td>{{ date('d-m-Y', strtotime($tarea->fecha_realizacion)) }}</td>
+                </tr>
+                <tr>
+                    <th>Anotaciones anteriores</th>
+                    <td>{{ $tarea->anotaciones_anteriores }}</td>
+                </tr>
+                <tr>
+                    <th>Anotaciones posteriores</th>
+                    <td>{{ $tarea->anotaciones_posteriores }}</td>
+                </tr>
+        
             </table>
         </div>
 
     </div>
 
-    <div id="centrar">
+    <div id="centrar"  class="d-flex justify-content-center">
         <form action="{{ route('borrarTarea', $tarea) }}" method="POST">
             @csrf
             @method('DELETE')

@@ -10,21 +10,19 @@
 
     <div id="cuerpo">
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-bordered">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Concepto</th>
-                        <th scope="col">Fecha emisión</th>
-                        <th scope="col">Importe</th>
-                        <th scope="col">Pagada</th>
-                        <th scope="col">Fecha pago</th>
-                        <th scope="col">Notas</th>
+                        <thead class="table-dark">
+                            <th>Nombre campo</th>
+                            <th>Valor campo</th>
+                        </thead>
                     </tr>
                 </thead>
                 <tbody>
 
                     <tr>
+                        <th>Cliente</th>
                         <td>
                             @if ($cuota->cliente)
                                 {{ $cuota->cliente->cif }}
@@ -32,21 +30,38 @@
                                 Cliente dado de baja
                             @endif
                         </td>
+                    </tr>
+                    <tr>
+                        <th>Concepto</th>
                         <td>{{ $cuota->concepto }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha emisión</th>
                         <td>{{ $cuota->fecha_emision }}</td>
+                    </tr>
+                    <tr>
+                        <th>Importe</th>
                         <td>{{ $cuota->importe }}</td>
+                    </tr>
+                    <tr>
+                        <th>Pagada</th>
                         <td>{{ $cuota->pagada }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha pago</th>
                         <td>{{ $cuota->fecha_pago }}</td>
+                    </tr>
+                    <tr>
+                        <th>Notas</th>
                         <td>{{ $cuota->notas }}</td>
                     </tr>
-
                 </tbody>
             </table>
         </div>
 
     </div>
 
-    <div id="centrar">
+    <div id="centrar"  class="d-flex justify-content-center">
         <form action="{{ route('borrarCuota', $cuota) }}" method="post">
             @csrf
             @method('DELETE')

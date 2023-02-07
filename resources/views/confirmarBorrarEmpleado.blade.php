@@ -10,29 +10,47 @@
 
     <div id="cuerpo">
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-bordered">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">DNI</th>
-                        <th scope="col">Nombre y Apellidos</th>
-                        <th scope="col">Clave</th>
-                        <th scope="col">Fecha alta</th>
-                        <th scope="col">Correo</th>
-                        <th scope="col">Teléfono</th>
-                        <th scope="col">Dirección</th>
-                        <th scope="col">Es admin</th>
+                        <thead class="table-dark">
+                            <th>Nombre campo</th>
+                            <th>Valor campo</th>
+                        </thead>
                     </tr>
                 </thead>
                 <tbody>
 
                     <tr>
+                        <th>DNI</th>
                         <td>{{ $empleado->dni }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nombre y Apellidos</th>
                         <td>{{ $empleado->nombre_apellidos }}</td>
+                    </tr>
+                    <tr>
+                        <th>Clave</th>
                         <td>{{ $empleado->clave }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha alta</th>
                         <td>{{ date('d-m-Y', strtotime($empleado->fecha_alta)) }}</td>
+                    </tr>
+                    <tr>
+                        <th>Correo</th>
                         <td>{{ $empleado->correo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Teléfono</th>
                         <td>{{ $empleado->telefono }}</td>
+                    </tr>
+                    <tr>
+                        <th>Dirección</th>
                         <td>{{ $empleado->direccion }}</td>
+                    </tr>
+                    <tr>
+                        <th>Es admin</th>
                         <td>{{ $empleado->es_admin }}</td>
                     </tr>
 
@@ -42,7 +60,7 @@
 
     </div>
 
-    <div id="centrar">
+    <div id="centrar"  class="d-flex justify-content-center">
         <form action="{{ route('borrarEmpleado', $empleado) }}" method="post">
             @csrf
             @method('DELETE')

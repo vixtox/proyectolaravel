@@ -35,7 +35,6 @@
 
 <body>
 
-
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Menu</a>
@@ -56,6 +55,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('registroCuotas') }}">Insertar Cuota</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('registroCuotaMensual') }}">Insertar Cuota Mensual</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('listaTareas') }}">Listar tareas</a>

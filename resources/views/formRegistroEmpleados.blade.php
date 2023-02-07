@@ -1,6 +1,6 @@
 @extends('base')
 
-@section('titulo', 'Formulario registro empleads')
+@section('titulo', 'Formulario registro empleado')
 
 @section('contenido')
 
@@ -55,7 +55,7 @@
             {!! $errors->first('fecha_alta', '<span style="color: red;">:message</span>') !!}
         </div>
         <div class="col-md-6">
-            <label class="form-label"><b>Tipo</b></label>
+            <label class="form-label"><b>Tipo</b></label><br>
             <label class="form-label">Admin</label>
             <input class="form-check-input" type="radio" name="es_admin" value="1"
                 {{ old('es_admin') == '1' ? 'checked' : '' }}>&nbsp;

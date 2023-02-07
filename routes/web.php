@@ -65,6 +65,8 @@ Route::post('editarEmpleado/{empleado}', [ControllerEmpleados::class, 'editarEmp
 //Insertar
 Route::get('/registroCuotas', [ControllerCuotas::class, 'formInsertarCuota'])->name('registroCuotas');
 Route::post('registroCuotas', [ControllerCuotas::class, 'insertarCuota']);
+Route::get('/registroCuotaMensual', [ControllerCuotas::class, 'formInsertarCuotaMensual'])->name('registroCuotaMensual');
+Route::post('registroCuotaMensual', [ControllerCuotas::class, 'insertarCuotaMensual']);
 // Listar
 Route::get('/listaCuotas', [ControllerCuotas::class, 'listarCuotas'])->name('listaCuotas');
 // Borrar

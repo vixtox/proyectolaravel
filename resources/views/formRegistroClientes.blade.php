@@ -53,7 +53,7 @@
         </div>
 
         <div class="col-md-6">
-            <label for="paises_id" class="form-label">País</label>
+            <label for="paises_id" class="form-label"><b>País</b></label>
             <select class="form-select" name="paises_id">
                 @foreach ($paises as $pais)
                   <option value="{{ $pais->id }}" {{ old('paises_id') == $pais->id ? 'selected' : '' }}>{{ $pais->nombre }}</option>
@@ -62,7 +62,7 @@
         </div>
 
         <div class="col-md-6">
-            <label for="moneda" class="form-label">Moneda</label>
+            <label for="moneda" class="form-label"><b>Moneda</b></label>
             <select class="form-select" name="moneda">
                 <?php $monedasMostradas = []; ?>
                 @foreach ($paises as $pais)
