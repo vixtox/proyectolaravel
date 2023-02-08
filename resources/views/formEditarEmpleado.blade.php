@@ -28,16 +28,16 @@
         </div>
         <br>
         <div class="col-md-6">
-            <label for="" class="form-label">Clave</label>
-            <input class="form-control" type="text" name="clave"
-                value="{{ old('clave') ?? $empleado->clave }}">
-            {!! $errors->first('clave', '<span style="color: red;">:message</span>') !!}
+            <label for="" class="form-label">Password</label>
+            <input class="form-control" type="text" name="password"
+                value="{{ old('password') ?? $empleado->password }}">
+            {!! $errors->first('password', '<span style="color: red;">:message</span>') !!}
         </div>
         <br>
         <div class="col-md-6">
-            <label for="" class="form-label">Correo</label>
-            <input class="form-control" type="text" name="correo" value="{{ old('correo') ?? $empleado->correo }}">
-            {!! $errors->first('correo', '<span style="color: red;">:message</span>') !!}
+            <label for="" class="form-label">Email</label>
+            <input class="form-control" type="text" name="email" value="{{ old('email') ?? $empleado->email }}">
+            {!! $errors->first('email', '<span style="color: red;">:message</span>') !!}
         </div>
         <br>
         <div class="col-md-6">
@@ -70,7 +70,10 @@
         </div>
         <div id="boton" class="col-md-12">
             <button type="submit" class="btn btn-primary">Enviar</button>
+            <a class="btn btn-success" href="{{ route('listaEmpleados') }}">Volver</a>
         </div>
+
+    </div>
 
     </form><br><br>
 @endsection

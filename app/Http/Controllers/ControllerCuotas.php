@@ -22,28 +22,6 @@ class ControllerCuotas extends Controller
 
     }
 
-    public function formInsertarCuotaMensual(Request $request)
-    {
-        //
-        return view('formCuotaMensual');
-
-    }
-
-    public function insertarCuotaMensual(){
-        $dataValidate = request()->validate([
-        'concepto'=>'required',
-        'fecha_emision'=>'required',
-        'notas'=>'required'
-    ]);
-    
-    Cuota::create($dataValidate);
-
-    session()->flash('message', 'La cuota ha sido registrada correctamente.');
-    return redirect()->route('listaCuotas');
-
-    }
-
-
     public function insertarCuota(){
         $dataValidate = request()->validate([
         'clientes_id'=>'required',
@@ -59,6 +37,35 @@ class ControllerCuotas extends Controller
 
     session()->flash('message', 'La cuota ha sido registrada correctamente.');
     return redirect()->route('listaCuotas');
+
+    }
+
+    public function formInsertarCuotaMensual(Request $request)
+    {
+        //
+        $clientes=Cliente::all();
+        return view('formCuotaMensual', compact('clientes') );
+
+    }
+
+    public function insertarCuotaMensual(){
+        $dataValidate = request()->validate([
+        'concepto'=>'required',
+        'fecha_emision'=>'required|after:now',
+        'notas'=>'required'
+    ]);
+
+    $clientes = Cliente::all();
+
+        foreach ($clientes as $cliente) {
+            $dataValidate['clientes_id'] = $cliente->id;
+            $dataValidate['importe'] = $cliente->cuota;
+            Cuota::create($dataValidate);
+        }
+
+        session()->flash('message', 'Las cuotas han sido creadas correctamente.');
+
+        return redirect()->route('listaCuotas');
 
     }
 

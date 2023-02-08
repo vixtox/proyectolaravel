@@ -110,4 +110,31 @@ class ControllerTarea extends Controller
 
     }
 
+    public function formCompletarTarea(Tarea $tarea)
+    {
+        return view('formCompletarTarea');
+    }
+
+    public function completarTarea(Tarea $tarea){
+
+        $dataValidate = request()->validate([
+        'anotaciones_anteriores'=>'',
+        'anotaciones_posteriores'=>'',
+        'fichero'=>''
+    ]);
+
+    $fichero = request()->file('fichero');
+    $nombre_original = $fichero->getClientOriginalName();
+    $path = $fichero->storeAs('public/files', $nombre_original);
+
+    $datos['fichero'] = $nombre_original;
+
+
+    Tarea::where('id', $tarea->id)->update($dataValidate);
+
+    session()->flash('message', 'La tarea ha sido completada correctamente.');
+    return redirect()->route('listaTareas');
+
+    }
+
 }

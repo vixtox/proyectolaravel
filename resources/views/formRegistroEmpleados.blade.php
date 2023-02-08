@@ -27,17 +27,17 @@
             {!! $errors->first('dni', '<span style="color: red;">:message</span>') !!}
         </div>
         <div class="col-md-6">
-            <label class="form-label"><b>Clave</b></label>
-            <input class="form-control" type="text" name="clave" value="{{ old('clave') }}">
-            {!! $errors->first('clave', '<span style="color: red;">:message</span>') !!}
+            <label class="form-label"><b>Password</b></label>
+            <input class="form-control" type="text" name="password" value="{{ old('password') }}">
+            {!! $errors->first('password', '<span style="color: red;">:message</span>') !!}
         </div>
         <div class="col-md-6">
-            <label class="form-label"><b>Correo</b></label>
+            <label class="form-label"><b>Email</b></label>
             <div class="input-group">
                 <span class="input-group-text" id="inputGroupPrepend2">@</span>
-                <input class="form-control" type="text" name="correo" value="{{ old('correo') }}">
+                <input class="form-control" type="text" name="email" value="{{ old('email') }}">
             </div>
-            {!! $errors->first('correo', '<span style="color: red;">:message</span>') !!}
+            {!! $errors->first('email', '<span style="color: red;">:message</span>') !!}
         </div>
         <div class="col-md-6">
             <label class="form-label"><b>Teléfono</b></label>

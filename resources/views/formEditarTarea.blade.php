@@ -138,6 +138,7 @@
 
     <div id="boton" class="col-md-12">
         <button class="btn btn-primary">Enviar tarea</button>
+        <a class="btn btn-success" href="{{ route('listaTareas') }}">Volver</a>
     </div>
 
 </form><br><br>

@@ -54,6 +54,9 @@
                         <a class="nav-link" href="{{ route('insertarTarea') }}">Insertar Tarea</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route('completarTarea') }}">Completar Tarea</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('registroCuotas') }}">Insertar Cuota</a>
                     </li>
                     <li class="nav-item">
@@ -72,6 +75,15 @@
                       <a class="nav-link" href="{{ route('listaCuotas') }}">Listar cuotas</a>
                   </li>
                 </ul>
+                @if (Auth::check())
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Cerrar sesión
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            @endif
             </div>
         </div>
     </nav>

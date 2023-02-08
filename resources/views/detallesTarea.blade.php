@@ -87,8 +87,7 @@
     </table>
 
 
-    <div id="centrar" class="d-flex justify-content-center"><a class="btn btn-success" href="{{ route('listaTareas') }}">Volver
-            atras</a>
+    <div id="centrar" class="d-flex justify-content-center"><a class="btn btn-success" href="{{ route('listaTareas') }}">Volver</a>
     </div>
 
 @endsection

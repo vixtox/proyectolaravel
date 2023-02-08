@@ -5,6 +5,7 @@ use App\Http\Controllers\ControllerTarea;
 use App\Http\Controllers\ControllerEmpleados;
 use App\Http\Controllers\ControllerClientes;
 use App\Http\Controllers\ControllerCuotas;
+use App\Http\Controllers\ControllerLogin;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,14 @@ use App\Http\Controllers\ControllerCuotas;
 |
 */
 
+// LOGIN----------------------------------------------------------------------------------------------------------
+
+Route::get('/', function () {
+    return view('login');
+});
+
+Route::post('/', [ControllerLogin::class, 'login'])->name('login');
+Route::post('logout', [ControllerLogin::class, 'logout'])->name('logout');
 
 // TAREAS----------------------------------------------------------------------------------------------------------
 
@@ -24,7 +33,10 @@ use App\Http\Controllers\ControllerCuotas;
 Route::get('/insertarTarea', [ControllerTarea::class, 'formularioInsertar'])->name('insertarTarea');
 Route::post('insertarTarea', [ControllerTarea::class, 'insertarTarea'])->name('insertarTarea');
 // Listar
-Route::get('/listaTareas', [ControllerTarea::class, 'listarTareas'])->name('listaTareas');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/listaTareas', [ControllerTarea::class, 'listarTareas'])->name('listaTareas');
+});
+
 // Borrar
 Route::get('/confirmarBorrarTarea/{tarea}', [ControllerTarea::class, 'confirmarBorrarTarea'])->name('confirmarBorrarTarea');
 Route::delete('/borrarTarea/{tarea}', [ControllerTarea::class, 'borrarTarea'])->name('borrarTarea');
@@ -33,7 +45,9 @@ Route::get('/detallesTarea/{tarea}', [ControllerTarea::class, 'detallesTarea'])-
 // Editar
 Route::get('/formEditarTarea/{tarea}', [ControllerTarea::class, 'formEditarTarea'])->name('formEditarTarea');
 Route::post('editarTarea/{tarea}', [ControllerTarea::class, 'editarTarea'])->name('editarTarea');
-
+// Completar
+Route::get('/completarTarea', [ControllerTarea::class, 'formCompletarTarea'])->name('completarTarea');
+Route::post('completarTarea', [ControllerTarea::class, 'completarTarea'])->name('completarTarea');
 
 // CLIENTES----------------------------------------------------------------------------------------------------------
 
