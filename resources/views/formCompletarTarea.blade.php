@@ -10,29 +10,32 @@
             {{ session()->get('message') }}
         </div>
     @endif
-    <h3>Formulario registro cuota mensual</h3>
+    <h3>Formulario completar tarea</h3>
 </div>
 
-<form action="{{ route('formCompletarTarea') }}" method="post" class="row g-3 needs-validation" id="formulario" enctype="multipart/form-data">
+<form action="{{ route('completarTarea', $tarea) }}" method="post" class="row g-3 needs-validation" id="formulario" enctype="multipart/form-data">
     @csrf
 
-    <div class="col-md-3">
-        <label for="anotaciones_anteriores" class="form-label">Anotaciones anteriores: </label>
-        <textarea class="form-control" name="anotaciones_anteriores" id="anotaciones_anteriores" cols="30" rows="4">{{ old('anotaciones_anteriores') }}</textarea>
-        {!! $errors->first('anotaciones_anteriores', '<b style="color: red">:message</b>') !!}
+    <div class="col-md-6">
+        <label for="anotaciones_anteriores" class="form-label"><b>Anotaciones anteriores</b></label>
+        <textarea class="form-control" id="anotaciones_anteriores" name="anotaciones_anteriores" rows="2"
+            cols="50">{{ old('anotaciones_anteriores') ?? $tarea->anotaciones_anteriores }}</textarea>
+        {!! $errors->first('anotaciones_anteriores', '<span style="color: red;">:message</span>') !!}
     </div>
-    <div class="col-md-3">
-        <label for="anotaciones_posteriores" class="form-label">Anotaciones posteriores: </label>
-        <textarea class="form-control" name="anotaciones_posteriores" id="anotaciones_posteriores" cols="30" rows="4">{{ old('anotaciones_posteriores') }}</textarea>
-        {!! $errors->first('anotaciones_posteriores', '<b style="color: red">:message</b>') !!}
+    <div class="col-md-6">
+        <label for="anotaciones_posteriores" class="form-label"><b>Anotaciones posteriores</b></label>
+        <textarea class="form-control" id="anotaciones_posteriores" name="anotaciones_posteriores" rows="2"
+            cols="50">{{ old('anotaciones_posteriores') ?? $tarea->anotaciones_posteriores }}</textarea>
+        {!! $errors->first('anotaciones_posteriores', '<span style="color: red;">:message</span>') !!}
     </div>
-    <div class="form-group">
-        <label for="fichero" class="form-label">Subir archivo</label>
-        <input class="form-control" type="file" name="fichero"><br><br>
+    <div class="col-md-4">
+        <label for="fichero" class="form-label">Fichero Resumen</label>
+        <input type="file" name="fichero" class="form-control" id="fichero">
     </div>
 
     <div id="boton" class="col-md-12">
         <button class="btn btn-primary" type="submit" name="enviar">Enviar</button>
+        <a class="btn btn-success" href="{{ route('listaTareas') }}">Volver</a>
     </div>
 
 </form>

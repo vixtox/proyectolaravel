@@ -54,9 +54,6 @@
                         <a class="nav-link" href="{{ route('insertarTarea') }}">Insertar Tarea</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('completarTarea') }}">Completar Tarea</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('registroCuotas') }}">Insertar Cuota</a>
                     </li>
                     <li class="nav-item">

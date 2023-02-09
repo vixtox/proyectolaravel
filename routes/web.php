@@ -46,8 +46,8 @@ Route::get('/detallesTarea/{tarea}', [ControllerTarea::class, 'detallesTarea'])-
 Route::get('/formEditarTarea/{tarea}', [ControllerTarea::class, 'formEditarTarea'])->name('formEditarTarea');
 Route::post('editarTarea/{tarea}', [ControllerTarea::class, 'editarTarea'])->name('editarTarea');
 // Completar
-Route::get('/completarTarea', [ControllerTarea::class, 'formCompletarTarea'])->name('completarTarea');
-Route::post('completarTarea', [ControllerTarea::class, 'completarTarea'])->name('completarTarea');
+Route::get('/formCompletarTarea/{tarea}', [ControllerTarea::class, 'formCompletarTarea'])->name('formCompletarTarea');
+Route::post('completarTarea/{tarea}', [ControllerTarea::class, 'completarTarea'])->name('completarTarea');
 
 // CLIENTES----------------------------------------------------------------------------------------------------------
 
@@ -66,7 +66,10 @@ Route::delete('/borrarCliente/{cliente}', [ControllerClientes::class, 'borrarCli
 Route::get('/registroEmpleado', [ControllerEmpleados::class, 'formInsertarEmpleado'])->name('registroEmpleado');
 Route::post('registroEmpleado', [ControllerEmpleados::class, 'insertarEmpleado']);
 // Listar
-Route::get('/listaEmpleados', [ControllerEmpleados::class, 'listarEmpleados'])->name('listaEmpleados');
+// Route::get('/listaEmpleados', [ControllerEmpleados::class, 'listarEmpleados'])->name('listaEmpleados');
+Route::middleware(['administrador'])->group(function () {
+    Route::get('/listaEmpleados', [ControllerEmpleados::class, 'listarEmpleados'])->name('listaEmpleados');
+});
 // Borrar
 Route::get('/confirmarBorrarEmpleado/{empleado}', [ControllerEmpleados::class, 'confirmarBorrarEmpleado'])->name('confirmarBorrarEmpleado');
 Route::delete('/borrarEmpleado/{empleado}', [ControllerEmpleados::class, 'borrarEmpleado'])->name('borrarEmpleado');

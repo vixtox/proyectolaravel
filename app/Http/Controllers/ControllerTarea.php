@@ -7,6 +7,7 @@ use App\Models\Cliente;
 use App\Models\Empleado;
 use App\Models\Provincia;
 use App\Models\Tarea;
+use Illuminate\Support\Facades\Auth;
 
 class ControllerTarea extends Controller
 {
@@ -28,9 +29,16 @@ class ControllerTarea extends Controller
 
     public function listarTareas()
     {
-        $tareas = Tarea::orderBy('fecha_realizacion', 'desc')->paginate(5);
-
+   
+        if (Auth::check() && Auth::user()->es_admin === 1) {
+            $tareas = Tarea::orderBy('fecha_realizacion', 'desc')->paginate(10);
+        } else {
+            $tareas = Tarea::where('empleados_id', Auth::user()->id)
+                ->orderBy('fecha_realizacion', 'desc')
+                ->paginate(10);
+        }
         return view('listaTareas', compact('tareas'));
+
     }
 
     public function borrarTarea(Tarea $tarea)
@@ -112,7 +120,7 @@ class ControllerTarea extends Controller
 
     public function formCompletarTarea(Tarea $tarea)
     {
-        return view('formCompletarTarea');
+        return view('formCompletarTarea', compact('tarea'));
     }
 
     public function completarTarea(Tarea $tarea){
@@ -123,11 +131,15 @@ class ControllerTarea extends Controller
         'fichero'=>''
     ]);
 
-    $fichero = request()->file('fichero');
-    $nombre_original = $fichero->getClientOriginalName();
-    $path = $fichero->storeAs('public/files', $nombre_original);
+    if (request()->hasFile('fichero')) {
 
-    $datos['fichero'] = $nombre_original;
+        $fichero = request()->file('fichero');
+        $nombre_fichero = $fichero->getClientOriginalName();
+        $path = $fichero->storeAs('public/files', $nombre_fichero);
+
+        $datos['fichero'] = $nombre_fichero;
+    }
+
 
 
     Tarea::where('id', $tarea->id)->update($dataValidate);
