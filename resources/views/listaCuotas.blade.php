@@ -63,7 +63,8 @@
                             <td>{{ $cuota->notas }}</td>
                             <td>
                                 <a class="btn btn-danger" href="{{ route('confirmarBorrarCuota', $cuota) }}" title="Borrar"><i class="fa-solid fa-trash"></i></a>
-                             </td>
+                                <a class="btn btn-warning" href="{{ route('formEditarCuota', $cuota) }}" title="Editar"><i class="fa-solid fa-pen"></i></a>
+                            </td>
 
                         </tr>
                     @endforeach

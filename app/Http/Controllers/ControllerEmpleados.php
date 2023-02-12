@@ -39,14 +39,14 @@ class ControllerEmpleados extends Controller
     Empleado::create($dataValidate);
 
     session()->flash('message', 'El empleado ha sido registrado correctamente.');
-    $empleados = Empleado::orderBy('fecha_alta', 'desc')->paginate(5);
+    $empleados = Empleado::orderBy('fecha_alta', 'desc')->paginate(10);
     return redirect()->route('listaEmpleados', compact('empleados'));
 
     }
 
     public function listarEmpleados()
     {
-        $empleados = Empleado::orderBy('fecha_alta', 'desc')->paginate(5);
+        $empleados = Empleado::orderBy('fecha_alta', 'desc')->paginate(10);
 
         return view('listaEmpleados', compact('empleados'));
     }

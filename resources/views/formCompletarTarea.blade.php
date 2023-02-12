@@ -17,6 +17,21 @@
     @csrf
 
     <div class="col-md-6">
+        <label for="" class="form-label"><b>Selecciona estado</b></label>
+        <select class="form-select" name="estado" id="estado">
+            <option value="P" {{ old('estado')=='P' || (old('estado')==null && $tarea->estado == 'P') ? 'selected' : ''
+                }}>
+                P=Pendiente</option>
+            <option value="R" {{ old('estado')=='R' || (old('estado')==null && $tarea->estado == 'R') ? 'selected' : ''
+                }}>
+                R=Realizada</option>
+            <option value="C" {{ old('estado')=='C' || (old('estado')==null && $tarea->estado == 'C') ? 'selected' : ''
+                }}>
+                C=Cancelada</option>
+        </select>
+    </div>
+
+    <div class="col-md-6">
         <label for="anotaciones_anteriores" class="form-label"><b>Anotaciones anteriores</b></label>
         <textarea class="form-control" id="anotaciones_anteriores" name="anotaciones_anteriores" rows="2"
             cols="50">{{ old('anotaciones_anteriores') ?? $tarea->anotaciones_anteriores }}</textarea>
@@ -28,7 +43,7 @@
             cols="50">{{ old('anotaciones_posteriores') ?? $tarea->anotaciones_posteriores }}</textarea>
         {!! $errors->first('anotaciones_posteriores', '<span style="color: red;">:message</span>') !!}
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <label for="fichero" class="form-label">Fichero Resumen</label>
         <input type="file" name="fichero" class="form-control" id="fichero">
     </div>

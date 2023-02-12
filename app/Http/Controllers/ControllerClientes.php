@@ -43,7 +43,7 @@ class ControllerClientes extends Controller
 
     public function listarClientes()
     {
-        $clientes = Cliente::orderBy('id', 'desc')->paginate(5);
+        $clientes = Cliente::orderBy('id', 'desc')->paginate(10);
 
         return view('listaClientes', compact('clientes'));
     }

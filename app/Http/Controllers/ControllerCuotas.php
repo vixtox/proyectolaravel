@@ -71,7 +71,7 @@ class ControllerCuotas extends Controller
 
     public function listarCuotas()
     {
-        $cuotas = Cuota::orderBy('fecha_emision', 'desc')->paginate(5);
+        $cuotas = Cuota::orderBy('fecha_emision', 'desc')->paginate(10);
 
         return view('listaCuotas', compact('cuotas'));
     }
@@ -109,6 +109,32 @@ class ControllerCuotas extends Controller
         session()->flash('message', 'La cuota ha sido creada correctamente.');
 
         return redirect()->route('formCuotas');
+    }
+
+    public function formEditarCuota(Cuota $cuota)
+    {
+        $clientes=Cliente::all();
+        return view('formEditarCuota', compact('clientes', 'cuota'));
+    }
+
+    public function editarCuota(Cuota $cuota){
+
+        $dataValidate = request()->validate([
+            'clientes_id'=>'required',
+            'concepto'=>'required',
+            'fecha_emision'=>'required',
+            'importe'=>'required|numeric',
+            'pagada'=>'',
+            'fecha_pago'=>'',
+            'notas'=>'required'
+    ]);
+
+
+    Cuota::where('id', $cuota->id)->update($dataValidate);
+
+    session()->flash('message', 'La cuota ha sido actualizada correctamente.');
+    return redirect()->route('listaCuotas');
+
     }
 
 }

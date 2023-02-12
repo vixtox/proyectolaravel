@@ -87,13 +87,15 @@
             <th>Fichero</th>
             <td>
                 @if ($tarea->fichero)
-                    <a class="btn btn-info" href="{{ Storage::url('public/files/'.$tarea->fichero) }}"download="{{ basename($tarea->fichero) }}">{{ $tarea->fichero }}</a>
+                    <a class="btn btn-info"
+                        href="{{ Storage::url('public/files/' . $tarea->fichero) }}"download="{{ basename($tarea->fichero) }}">{{ $tarea->fichero }}</a>
                 @endif
             </td>
         </tr>
     </table>
 
-    <div id="centrar" class="d-flex justify-content-center"><a class="btn btn-success" href="{{ route('listaTareas') }}">Volver</a>
+    <div id="centrar" class="d-flex justify-content-center"><a class="btn btn-success"
+            href="{{ route('listaTareas') }}">Volver</a>
     </div>
 
 @endsection

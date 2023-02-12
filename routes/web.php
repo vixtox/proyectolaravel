@@ -89,3 +89,6 @@ Route::get('/listaCuotas', [ControllerCuotas::class, 'listarCuotas'])->name('lis
 // Borrar
 Route::get('/confirmarBorrarCuota/{cuota}', [ControllerCuotas::class, 'confirmarBorrarCuota'])->name('confirmarBorrarCuota');
 Route::delete('/borrarCuota/{cuota}', [ControllerCuotas::class, 'borrarCuota'])->name('borrarCuota');
+// Editar
+Route::get('/formEditarCuota/{cuota}', [ControllerCuotas::class, 'formEditarCuota'])->name('formEditarCuota');
+Route::post('editarCuota/{cuota}', [ControllerCuotas::class, 'editarCuota'])->name('editarCuota');

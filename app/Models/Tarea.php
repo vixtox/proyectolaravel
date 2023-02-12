@@ -20,16 +20,18 @@ class Tarea extends Model
     public function cliente()
     {
         return $this->belongsTo('App\Models\Cliente', 'clientes_id');
+        return $this->belongsTo(Cliente::class, 'clientes_id');
+        
     }
 
     public function empleado()
     {
-        return $this->belongsTo('App\Models\Empleado', 'empleados_id');
+        return $this->belongsTo(Empleado::class, 'empleados_id');
     }
 
     public function provincia()
     {
-        return $this->belongsTo('App\Models\Provincia', 'provincias_id');
+        return $this->belongsTo(Provincia::class, 'provincias_id');
     }
 
 }

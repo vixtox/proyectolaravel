@@ -19,5 +19,6 @@ class Cuota extends Model
     public function cliente()
     {
         return $this->belongsTo('App\Models\Cliente', 'clientes_id');
+        return $this->belongsTo(Cliente::class, 'clientes_id');
     }
 }

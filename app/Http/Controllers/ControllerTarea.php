@@ -126,9 +126,10 @@ class ControllerTarea extends Controller
     public function completarTarea(Tarea $tarea){
 
         $dataValidate = request()->validate([
+        'estado' => 'required',
         'anotaciones_anteriores'=>'',
         'anotaciones_posteriores'=>'',
-        'fichero'=>''
+        'fichero'=>'file'
     ]);
 
     if (request()->hasFile('fichero')) {
@@ -137,7 +138,7 @@ class ControllerTarea extends Controller
         $nombre_fichero = $fichero->getClientOriginalName();
         $path = $fichero->storeAs('public/files', $nombre_fichero);
 
-        $datos['fichero'] = $nombre_fichero;
+        $dataValidate['fichero'] = $nombre_fichero;
     }
 
 
