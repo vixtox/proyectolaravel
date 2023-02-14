@@ -94,8 +94,13 @@
         </tr>
     </table>
 
-    <div id="centrar" class="d-flex justify-content-center"><a class="btn btn-success"
-            href="{{ route('listaTareas') }}">Volver</a>
+    <div id="centrar" class="d-flex justify-content-center">
+        @if (Auth::check() && Auth::user()->es_admin === 1)
+            <a class="btn btn-success" href="{{ route('listaTareas') }}">Volver</a>
+        @endif
+        @if (Auth::check() && Auth::user()->es_admin === 0)
+            <a class="btn btn-success" href="{{ route('listaTareasOperario') }}">Volver</a>
+        @endif
     </div>
 
 @endsection

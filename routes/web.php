@@ -2,10 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControllerTarea;
+use App\Http\Controllers\ControllerTareaOperario;
 use App\Http\Controllers\ControllerEmpleados;
 use App\Http\Controllers\ControllerClientes;
 use App\Http\Controllers\ControllerCuotas;
 use App\Http\Controllers\ControllerLogin;
+use App\Http\Controllers\FacturaController;
+use App\Mail\NosecaenMail;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +22,12 @@ use App\Http\Controllers\ControllerLogin;
 |
 */
 
+Route::get('/email', function () {
+    Mail::to("nosecaen@mail")->send(new NosecaenMail());
+})->name('email');
+
+Route::get('/generatePDF/{cuota}', FacturaController::class)->name('generatePDF');
+
 // LOGIN----------------------------------------------------------------------------------------------------------
 
 Route::get('/', function () {
@@ -27,68 +37,75 @@ Route::get('/', function () {
 Route::post('/', [ControllerLogin::class, 'login'])->name('login');
 Route::post('logout', [ControllerLogin::class, 'logout'])->name('logout');
 
-// TAREAS----------------------------------------------------------------------------------------------------------
-
-// Insertar
-Route::get('/insertarTarea', [ControllerTarea::class, 'formularioInsertar'])->name('insertarTarea');
-Route::post('insertarTarea', [ControllerTarea::class, 'insertarTarea'])->name('insertarTarea');
-// Listar
+// FUNCIONES ADMINISTRADOR
 Route::middleware(['auth'])->group(function () {
-    Route::get('/listaTareas', [ControllerTarea::class, 'listarTareas'])->name('listaTareas');
+
+    Route::middleware(['administrador'])->group(function () {
+        // TAREAS----------------------------------------------------------------------------------------------------------
+        // Listar
+        Route::get('/listaTareas', [ControllerTarea::class, 'listarTareas'])->name('listaTareas');
+        // Insertar
+        Route::get('/insertarTarea', [ControllerTarea::class, 'formularioInsertar'])->name('insertarTarea');
+        Route::post('insertarTarea', [ControllerTarea::class, 'insertarTarea'])->name('insertarTarea');
+        // Borrar
+        Route::get('/confirmarBorrarTarea/{tarea}', [ControllerTarea::class, 'confirmarBorrarTarea'])->name('confirmarBorrarTarea');
+        Route::delete('/borrarTarea/{tarea}', [ControllerTarea::class, 'borrarTarea'])->name('borrarTarea');
+        // Detalles
+        Route::get('/detallesTarea/{tarea}', [ControllerTarea::class, 'detallesTarea'])->name('detallesTarea');
+        // Editar
+        Route::get('/formEditarTarea/{tarea}', [ControllerTarea::class, 'formEditarTarea'])->name('formEditarTarea');
+        Route::post('editarTarea/{tarea}', [ControllerTarea::class, 'editarTarea'])->name('editarTarea');
+        // CLIENTES----------------------------------------------------------------------------------------------------------
+        // Insertar
+        Route::get('/registroCliente', [ControllerClientes::class, 'formInsertarCliente'])->name('registroCliente');
+        Route::post('registroCliente', [ControllerClientes::class, 'insertarCliente']);
+        // Listar
+        Route::get('/listaClientes', [ControllerClientes::class, 'listarClientes'])->name('listaClientes');
+        // Borrar 
+        Route::get('/confirmarBorrarCliente/{cliente}', [ControllerClientes::class, 'confirmarBorrarCliente'])->name('confirmarBorrarCliente');
+        Route::delete('/borrarCliente/{cliente}', [ControllerClientes::class, 'borrarCliente'])->name('borrarCliente');
+        // Editar
+        Route::get('/formEditarCliente/{cliente}', [ControllerClientes::class, 'formEditarCliente'])->name('formEditarCliente');
+        Route::post('editarCliente/{cliente}', [ControllerClientes::class, 'editarCliente'])->name('editarCliente');
+        // EMPLEADOS-----------------------------------------------------------------------------------------------------------
+        // Insertar
+        Route::get('/registroEmpleado', [ControllerEmpleados::class, 'formInsertarEmpleado'])->name('registroEmpleado');
+        Route::post('registroEmpleado', [ControllerEmpleados::class, 'insertarEmpleado']);
+        // Listar
+        // Route::get('/listaEmpleados', [ControllerEmpleados::class, 'listarEmpleados'])->name('listaEmpleados');
+        Route::middleware(['administrador'])->group(function () {
+            Route::get('/listaEmpleados', [ControllerEmpleados::class, 'listarEmpleados'])->name('listaEmpleados');
+        });
+        // Borrar
+        Route::get('/confirmarBorrarEmpleado/{empleado}', [ControllerEmpleados::class, 'confirmarBorrarEmpleado'])->name('confirmarBorrarEmpleado');
+        Route::delete('/borrarEmpleado/{empleado}', [ControllerEmpleados::class, 'borrarEmpleado'])->name('borrarEmpleado');
+        // Editar
+        Route::get('/formEditarEmpleado/{empleado}', [ControllerEmpleados::class, 'formEditarEmpleado'])->name('formEditarEmpleado');
+        Route::post('editarEmpleado/{empleado}', [ControllerEmpleados::class, 'editarEmpleado'])->name('editarEmpleado');
+        // CUOTAS--------------------------------------------------------------------------------------------------------------
+        //Insertar
+        Route::get('/registroCuotas', [ControllerCuotas::class, 'formInsertarCuota'])->name('registroCuotas');
+        Route::post('registroCuotas', [ControllerCuotas::class, 'insertarCuota']);
+        Route::get('/registroCuotaMensual', [ControllerCuotas::class, 'formInsertarCuotaMensual'])->name('registroCuotaMensual');
+        Route::post('registroCuotaMensual', [ControllerCuotas::class, 'insertarCuotaMensual']);
+        // Listar
+        Route::get('/listaCuotas', [ControllerCuotas::class, 'listarCuotas'])->name('listaCuotas');
+        // Borrar
+        Route::get('/confirmarBorrarCuota/{cuota}', [ControllerCuotas::class, 'confirmarBorrarCuota'])->name('confirmarBorrarCuota');
+        Route::delete('/borrarCuota/{cuota}', [ControllerCuotas::class, 'borrarCuota'])->name('borrarCuota');
+        // Editar
+        Route::get('/formEditarCuota/{cuota}', [ControllerCuotas::class, 'formEditarCuota'])->name('formEditarCuota');
+        Route::post('editarCuota/{cuota}', [ControllerCuotas::class, 'editarCuota'])->name('editarCuota');
+    });
+
+    // FUNCIONES OPERARIO
+    Route::middleware(['operario'])->group(function () {
+        // Completar
+        Route::get('/formCompletarTarea/{tarea}', [ControllerTareaOperario::class, 'formCompletarTarea'])->middleware('verificarempleadotarea')->name('formCompletarTarea');
+        Route::post('completarTarea/{tarea}', [ControllerTareaOperario::class, 'completarTarea'])->name('completarTarea');
+        // Listar
+        Route::get('/listaTareasOperario', [ControllerTareaOperario::class, 'listarTareasOperario'])->name('listaTareasOperario');
+        // Detalles
+        Route::get('/detallesTareaOperario/{tarea}', [ControllerTareaOperario::class, 'detallesTareaOperario'])->middleware('verificarempleadotarea')->name('detallesTareaOperario');
+    });
 });
-
-// Borrar
-Route::get('/confirmarBorrarTarea/{tarea}', [ControllerTarea::class, 'confirmarBorrarTarea'])->name('confirmarBorrarTarea');
-Route::delete('/borrarTarea/{tarea}', [ControllerTarea::class, 'borrarTarea'])->name('borrarTarea');
-// Detalles
-Route::get('/detallesTarea/{tarea}', [ControllerTarea::class, 'detallesTarea'])->name('detallesTarea');
-// Editar
-Route::get('/formEditarTarea/{tarea}', [ControllerTarea::class, 'formEditarTarea'])->name('formEditarTarea');
-Route::post('editarTarea/{tarea}', [ControllerTarea::class, 'editarTarea'])->name('editarTarea');
-// Completar
-Route::get('/formCompletarTarea/{tarea}', [ControllerTarea::class, 'formCompletarTarea'])->name('formCompletarTarea');
-Route::post('completarTarea/{tarea}', [ControllerTarea::class, 'completarTarea'])->name('completarTarea');
-
-// CLIENTES----------------------------------------------------------------------------------------------------------
-
-// Insertar
-Route::get('/registroCliente', [ControllerClientes::class, 'formInsertarCliente'])->name('registroCliente');
-Route::post('registroCliente', [ControllerClientes::class, 'insertarCliente']);
-// Listar
-Route::get('/listaClientes', [ControllerClientes::class, 'listarClientes'])->name('listaClientes');
-// Borrar 
-Route::get('/confirmarBorrarCliente/{cliente}', [ControllerClientes::class, 'confirmarBorrarCliente'])->name('confirmarBorrarCliente');
-Route::delete('/borrarCliente/{cliente}', [ControllerClientes::class, 'borrarCliente'])->name('borrarCliente');
-
-// EMPLEADOS-----------------------------------------------------------------------------------------------------------
-
-// Insertar
-Route::get('/registroEmpleado', [ControllerEmpleados::class, 'formInsertarEmpleado'])->name('registroEmpleado');
-Route::post('registroEmpleado', [ControllerEmpleados::class, 'insertarEmpleado']);
-// Listar
-// Route::get('/listaEmpleados', [ControllerEmpleados::class, 'listarEmpleados'])->name('listaEmpleados');
-Route::middleware(['administrador'])->group(function () {
-    Route::get('/listaEmpleados', [ControllerEmpleados::class, 'listarEmpleados'])->name('listaEmpleados');
-});
-// Borrar
-Route::get('/confirmarBorrarEmpleado/{empleado}', [ControllerEmpleados::class, 'confirmarBorrarEmpleado'])->name('confirmarBorrarEmpleado');
-Route::delete('/borrarEmpleado/{empleado}', [ControllerEmpleados::class, 'borrarEmpleado'])->name('borrarEmpleado');
-// Editar
-Route::get('/formEditarEmpleado/{empleado}', [ControllerEmpleados::class, 'formEditarEmpleado'])->name('formEditarEmpleado');
-Route::post('editarEmpleado/{empleado}', [ControllerEmpleados::class, 'editarEmpleado'])->name('editarEmpleado');
-
-// CUOTAS--------------------------------------------------------------------------------------------------------------
-
-//Insertar
-Route::get('/registroCuotas', [ControllerCuotas::class, 'formInsertarCuota'])->name('registroCuotas');
-Route::post('registroCuotas', [ControllerCuotas::class, 'insertarCuota']);
-Route::get('/registroCuotaMensual', [ControllerCuotas::class, 'formInsertarCuotaMensual'])->name('registroCuotaMensual');
-Route::post('registroCuotaMensual', [ControllerCuotas::class, 'insertarCuotaMensual']);
-// Listar
-Route::get('/listaCuotas', [ControllerCuotas::class, 'listarCuotas'])->name('listaCuotas');
-// Borrar
-Route::get('/confirmarBorrarCuota/{cuota}', [ControllerCuotas::class, 'confirmarBorrarCuota'])->name('confirmarBorrarCuota');
-Route::delete('/borrarCuota/{cuota}', [ControllerCuotas::class, 'borrarCuota'])->name('borrarCuota');
-// Editar
-Route::get('/formEditarCuota/{cuota}', [ControllerCuotas::class, 'formEditarCuota'])->name('formEditarCuota');
-Route::post('editarCuota/{cuota}', [ControllerCuotas::class, 'editarCuota'])->name('editarCuota');

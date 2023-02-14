@@ -60,4 +60,29 @@ class ControllerClientes extends Controller
         return view('confirmarBorrarCliente', compact('cliente'));
     }
 
+    public function formEditarCliente(Cliente $cliente)
+    {
+        return view('formEditarCliente', compact('cliente'));
+    }
+
+    public function editarCliente(Cliente $cliente){
+    
+        $dataValidate = request()->validate([
+            'cif'=> ['required', new CifValidarRule],
+            'nombre_apellidos'=>'required|min:5|max:50',
+            'correo'=>'required|email',
+            'telefono'=> 'required|regex:/^(?:(?:\+?[0-9]{2,4})?[ ]?[6789][0-9 ]{8,13})$/',
+            'iban'=>'required|regex:/^ES\d{2}\d{4}\d{4}\d{2}\d{10}$/',
+            'cuota'=>'required|numeric',
+            'paises_id'=>'required',
+            'moneda'=>'required'
+        ]);
+
+    Cliente::where('id', $cliente->id)->update($dataValidate);
+
+    session()->flash('message', 'El cliente ha sido actualizado correctamente.');
+    return redirect()->route('listaClientes');
+
+    }
+
 }

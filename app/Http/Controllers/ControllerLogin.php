@@ -23,8 +23,8 @@ class ControllerLogin extends Controller
                 session(['administrador']);
                 return redirect()->route('listaEmpleados');
             } else {
-                session(['operario' => $empleado->role]);
-                return redirect()->route('listaTareas');
+                //session(['operario' => $empleado->role]);
+                return redirect()->route('listaTareasOperario');
             }
         }
 

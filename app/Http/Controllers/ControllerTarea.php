@@ -29,14 +29,8 @@ class ControllerTarea extends Controller
 
     public function listarTareas()
     {
-   
-        if (Auth::check() && Auth::user()->es_admin === 1) {
-            $tareas = Tarea::orderBy('fecha_realizacion', 'desc')->paginate(10);
-        } else {
-            $tareas = Tarea::where('empleados_id', Auth::user()->id)
-                ->orderBy('fecha_realizacion', 'desc')
-                ->paginate(10);
-        }
+        $tareas = Tarea::orderBy('fecha_realizacion', 'desc')->paginate(10);
+      
         return view('listaTareas', compact('tareas'));
 
     }
@@ -107,27 +101,6 @@ class ControllerTarea extends Controller
         'empleados_id'=>'required',
         'fecha_realizacion'=>'required|after:now',
         'anotaciones_anteriores'=>'',
-        'anotaciones_posteriores'=>''
-    ]);
-
-
-    Tarea::where('id', $tarea->id)->update($dataValidate);
-
-    session()->flash('message', 'La tarea ha sido actualizada correctamente.');
-    return redirect()->route('listaTareas');
-
-    }
-
-    public function formCompletarTarea(Tarea $tarea)
-    {
-        return view('formCompletarTarea', compact('tarea'));
-    }
-
-    public function completarTarea(Tarea $tarea){
-
-        $dataValidate = request()->validate([
-        'estado' => 'required',
-        'anotaciones_anteriores'=>'',
         'anotaciones_posteriores'=>'',
         'fichero'=>'file'
     ]);
@@ -145,7 +118,7 @@ class ControllerTarea extends Controller
 
     Tarea::where('id', $tarea->id)->update($dataValidate);
 
-    session()->flash('message', 'La tarea ha sido completada correctamente.');
+    session()->flash('message', 'La tarea ha sido actualizada correctamente.');
     return redirect()->route('listaTareas');
 
     }

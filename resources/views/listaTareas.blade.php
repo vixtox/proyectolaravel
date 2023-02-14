@@ -64,10 +64,21 @@
                             </td>
                             <td>{{ date('d-m-Y', strtotime($tarea->fecha_realizacion)) }}</td>
                             <td>
-                                <a class="btn btn-danger" href="{{ route('confirmarBorrarTarea', $tarea) }}" title="Borrar"><i class="fa-solid fa-trash"></i></a>
-                                <a class="btn btn-warning" href="{{ route('formEditarTarea', $tarea) }}" title="Editar"><i class="fa-solid fa-pen"></i></a>
-                                <a class="btn btn-primary" href="{{ route('detallesTarea', $tarea) }}" title="Detalles"><i class="fa-solid fa-eye"></i></a>
-                                <a class="btn btn-success" href="{{ route('formCompletarTarea', $tarea) }}" title="Completar"><i class="fa-regular fa-circle-check"></i></a>
+                                @if (Auth::check() && Auth::user()->es_admin === 1)
+                                    <a class="btn btn-danger" href="{{ route('confirmarBorrarTarea', $tarea) }}"
+                                        title="Borrar"><i class="fa-solid fa-trash"></i></a>
+                                    <a class="btn btn-warning" href="{{ route('formEditarTarea', $tarea) }}"
+                                        title="Editar"><i class="fa-solid fa-pen"></i></a>
+                                        <a class="btn btn-primary" href="{{ route('detallesTarea', $tarea) }}"
+                                        title="Detalles"><i class="fa-solid fa-eye"></i></a>
+                                @endif
+                               
+                                @if (Auth::check() && Auth::user()->es_admin === 0)
+                                    <a class="btn btn-success" href="{{ route('formCompletarTarea', $tarea) }}"
+                                        title="Completar"><i class="fa-regular fa-circle-check"></i></a>
+                                        <a class="btn btn-primary" href="{{ route('detallesTareaOperario', $tarea) }}"
+                                        title="Detalles"><i class="fa-solid fa-eye"></i></a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -82,7 +93,8 @@
                         <a class="page-link" href="{{ $tareas->url(1) }}">Primera</a>
                     </li>
                     <li class="page-item {{ $tareas->currentPage() == 1 ? 'disabled' : '' }}">
-                        <a class="page-link" href="{{ $tareas->previousPageUrl() }}"><<</a>
+                        <a class="page-link" href="{{ $tareas->previousPageUrl() }}">
+                            <<</a>
                     </li>
                     @for ($i = 1; $i <= $tareas->lastPage(); $i++)
                         <li class="page-item {{ $tareas->currentPage() == $i ? 'active' : '' }}">

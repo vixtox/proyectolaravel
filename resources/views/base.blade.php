@@ -44,47 +44,55 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('registroEmpleado') }}">Insertar Empleado</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('registroCliente') }}">Insertar Cliente</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('insertarTarea') }}">Insertar Tarea</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('registroCuotas') }}">Insertar Cuota</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('registroCuotaMensual') }}">Insertar Cuota Mensual</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('listaTareas') }}">Listar tareas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('listaEmpleados') }}">Listar empleados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('listaClientes') }}">Listar clientes</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{{ route('listaCuotas') }}">Listar cuotas</a>
-                  </li>
+                    @if (Auth::check() && Auth::user()->es_admin === 1)
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ route('registroEmpleado') }}">Insertar Empleado</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('registroCliente') }}">Insertar Cliente</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('insertarTarea') }}">Insertar Tarea</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('registroCuotas') }}">Insertar Cuota</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('registroCuotaMensual') }}">Insertar Cuota Mensual</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('listaTareas') }}">Listar tareas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('listaEmpleados') }}">Listar empleados</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('listaClientes') }}">Listar clientes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('listaCuotas') }}">Listar cuotas</a>
+                        </li>
+                    @endif
+                    @if (Auth::check() && Auth::user()->es_admin === 0)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('listaTareasOperario') }}">Listar tareas</a>
+                        </li>
+                    @endif
+
                 </ul>
+
                 @if (Auth::check())
-                <a href="{{ route('logout') }}"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    Cerrar sesión
-                </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            @endif
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Cerrar sesión
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                @endif
             </div>
         </div>
     </nav>
-
 
     @yield('contenido')
 

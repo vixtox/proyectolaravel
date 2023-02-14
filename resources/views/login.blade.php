@@ -15,15 +15,16 @@
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 
     <!-- Nuestro css-->
-    {{-- <link rel="stylesheet" type="text/css" href="../../Assets/css/login.css" th:href="@{../../Assets/css/login.css}"> --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('/resources/css/login.css') }}" th:href="@{/resources/css/login.css}">
 
-    <style>
+
+    {{-- <style>
         body {
-            background-image: url('{{ asset('img/fondo.jpg') }}');
+            background-image: url('{{ asset('img/fondo2.jpg') }}');
             background-size: cover;
             background-position: center;
         }
-    </style>
+    </style> --}}
 
 </head>
 <body>
@@ -32,7 +33,8 @@
         <div class="col-sm-8 main-section">
             <div class="modal-content">
                 <div class="col-12 user-img">
-                    <img src="/public/img/user.png" th:src="@{/public/img/user.png}"/>
+                    <img src="{{ asset('/public/img/user.png') }}" th:src="@{{ asset('/public/img/user.png') }}"/>
+                    
                 </div>
                 <form action="{{ route('login') }}" method="post" class="col-12" >
                     @csrf

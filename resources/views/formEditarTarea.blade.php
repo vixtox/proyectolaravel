@@ -10,7 +10,17 @@
     @endif
 </div>
 
-<form method="post" action="{{ route('editarTarea', $tarea) }}" id="formulario" class="row g-3">
+@if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li><b style="color: red">{{ $error }}</b></li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+<form method="post" action="{{ route('editarTarea', $tarea) }}" id="formulario" class="row g-3" enctype="multipart/form-data">
     @csrf
 
     <div class="col-md-6">
@@ -135,6 +145,10 @@
         {!! $errors->first('anotaciones_posteriores', '<span style="color: red;">:message</span>') !!}
     </div>
     <br>
+    <div class="col-md-6">
+        <label for="fichero" class="form-label">Fichero</label>
+        <input type="file" name="fichero" class="form-control" id="fichero">
+    </div>
 
     <div id="boton" class="col-md-12">
         <button class="btn btn-primary">Enviar tarea</button>
