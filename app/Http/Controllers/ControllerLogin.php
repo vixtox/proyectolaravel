@@ -36,4 +36,9 @@ class ControllerLogin extends Controller
         Auth::logout();
         return redirect('/');
     }
+
+    public function formRecuperarClave(Request $request)
+    {
+        return view('formRecuperarClave');
+    }
 }

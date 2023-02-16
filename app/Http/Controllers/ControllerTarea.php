@@ -7,7 +7,6 @@ use App\Models\Cliente;
 use App\Models\Empleado;
 use App\Models\Provincia;
 use App\Models\Tarea;
-use Illuminate\Support\Facades\Auth;
 
 class ControllerTarea extends Controller
 {
@@ -25,6 +24,30 @@ class ControllerTarea extends Controller
         $provincias=Provincia::all();
         return view('formInsertarTarea', compact('clientes', 'empleados', 'provincias') );
     
+    }
+
+    public function insertarTarea(){
+
+        $dataValidate = request()->validate([
+        'clientes_id'=>'required',
+        'nombre_apellidos'=>'required|min:3|max:50',
+        'descripcion'=>'required',
+        'correo'=>'required|email',
+        'telefono'=> 'required|regex:/^(?:(?:\+?[0-9]{2,4})?[ ]?[6789][0-9 ]{8,13})$/',
+        'direccion'=>'required',
+        'poblacion'=>'required',
+        'codigo_postal' => ['required', 'regex:/^(0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$/'],
+        'provincias_id'=>'required',
+        'estado'=>'required',
+        'empleados_id'=>'required',
+        'fecha_realizacion'=>'required|after:now'
+    ]);
+
+    Tarea::create($dataValidate);
+
+    session()->flash('message', 'La tarea ha sido registrada correctamente.');
+    return redirect()->route('listaTareas');
+
     }
 
     public function listarTareas()
@@ -51,30 +74,6 @@ class ControllerTarea extends Controller
     {
 
         return view('detallesTarea', compact('tarea'));
-    }
-
-    public function insertarTarea(){
-
-        $dataValidate = request()->validate([
-        'clientes_id'=>'required',
-        'nombre_apellidos'=>'required|min:3|max:50',
-        'descripcion'=>'required',
-        'correo'=>'required|email',
-        'telefono'=> 'required|regex:/^(?:(?:\+?[0-9]{2,4})?[ ]?[6789][0-9 ]{8,13})$/',
-        'direccion'=>'required',
-        'poblacion'=>'required',
-        'codigo_postal' => ['required', 'regex:/^(0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$/'],
-        'provincias_id'=>'required',
-        'estado'=>'required',
-        'empleados_id'=>'required',
-        'fecha_realizacion'=>'required|after:now'
-    ]);
-
-    Tarea::create($dataValidate);
-
-    session()->flash('message', 'La tarea ha sido registrada correctamente.');
-    return redirect()->route('listaTareas');
-
     }
 
     public function formEditarTarea(Tarea $tarea)
@@ -122,5 +121,57 @@ class ControllerTarea extends Controller
     return redirect()->route('listaTareas');
 
     }
+
+    public function formularioInsertarTareaCliente(Request $request)
+    {
+        //
+        $clientes=Cliente::all();
+        $empleados=Empleado::all();
+        $provincias=Provincia::all();
+        return view('formInsertarTareaCliente', compact('provincias') );
+    
+    }
+
+    public function insertarTareaCliente(){
+
+        $dataValidate = request()->validate([
+        'cif_cliente'=>'required',
+        'telefono_cliente'=>'required',
+        'clientes_id' => '',
+        'nombre_apellidos'=>'required|min:3|max:50',
+        'descripcion'=>'required',
+        'correo'=>'required|email',
+        'telefono'=> 'required|regex:/^(?:(?:\+?[0-9]{2,4})?[ ]?[6789][0-9 ]{8,13})$/',
+        'direccion'=>'required',
+        'poblacion'=>'required',
+        'codigo_postal' => ['required', 'regex:/^(0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$/'],
+        'provincias_id'=>'required',
+        'empleados_id' => '',
+        'fecha_realizacion'=>'required|after:now'
+    ]);
+ 
+    $cliente = Cliente::where('cif', $dataValidate['cif_cliente'])
+            ->where('telefono', $dataValidate['telefono_cliente'])
+            ->first();
+         
+        if (
+            $cliente != null
+        ) {
+                        //Quitamos la información de comprobar cliente
+                        unset($dataValidate['cliente_cif']);
+                        unset($dataValidate['telefono_cliente']);
+            
+                        $dataValidate['estado'] = "P";
+                        $dataValidate['clientes_id'] = $cliente->id;
+            
+                        Tarea::create($dataValidate);
+            
+                        // dd($dataValidate);
+                        session()->flash('message', 'La tarea ha sido registrada correctamente.');
+                        return redirect()->route('insertarTareaCliente');
+                    }
+                    session()->flash('error', 'El cliente introducido no existe.');
+                    return redirect()->route('insertarTareaCliente');
+            }
 
 }

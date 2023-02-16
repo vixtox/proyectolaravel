@@ -46,6 +46,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>  Login </button>
                 </form>
+                <a href="{{ route('recuperarClave') }}">Olvide contraseña</a>
                 <div class="col-12 forgot">
                     <input type="checkbox" name="recordar">
                     <label>Recordar usuario</label>

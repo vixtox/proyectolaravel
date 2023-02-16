@@ -7,9 +7,11 @@ use App\Http\Controllers\ControllerEmpleados;
 use App\Http\Controllers\ControllerClientes;
 use App\Http\Controllers\ControllerCuotas;
 use App\Http\Controllers\ControllerLogin;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FacturaController;
 use App\Mail\NosecaenMail;
 use Illuminate\Support\Facades\Mail;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +24,11 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
-Route::get('/email', function () {
-    Mail::to("nosecaen@mail")->send(new NosecaenMail());
-})->name('email');
+Route::get('/email',[EmailController::class, 'store'])->name('email');
+
+// Route::get('/email', function () {
+//     Mail::to("nosecaen@mail")->send(new NosecaenMail());
+// })->name('email');
 
 Route::get('/generatePDF/{cuota}', FacturaController::class)->name('generatePDF');
 
@@ -37,7 +41,19 @@ Route::get('/', function () {
 Route::post('/', [ControllerLogin::class, 'login'])->name('login');
 Route::post('logout', [ControllerLogin::class, 'logout'])->name('logout');
 
-// FUNCIONES ADMINISTRADOR
+// RECUPERAR CLAVE
+Route::get('/recuperarClave', [ControllerLogin::class, 'formRecuperarClave'])->name('recuperarClave');
+Route::post('recuperarClave', [EmailController::class, 'checkEmpleado']);
+Route::get('/generatePass', [EmailController::class, 'generatePass'])->name('generatePass');
+
+// FORMULARIO TAREA CLIENTE----------------------------------------------------------------------------------------------------
+
+   // Insertar
+Route::get('/insertarTareaCliente', [ControllerTarea::class, 'formularioInsertarTareaCliente'])->name('insertarTareaCliente');
+Route::post('insertarTareaCliente', [ControllerTarea::class, 'insertarTareaCliente'])->name('insertarTareaCliente');
+
+
+// FUNCIONES ADMINISTRADOR-------------------------------------------------------------------------------------------------------
 Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['administrador'])->group(function () {
