@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cuota;
 use App\Models\Cliente;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Message;
+use PDF;
 
 class ControllerCuotas extends Controller
 {
@@ -33,11 +36,65 @@ class ControllerCuotas extends Controller
         'notas'=>'required'
     ]);
     
-    Cuota::create($dataValidate);
+    $cuota = Cuota::create($dataValidate);
+
+    $cliente = Cliente::where('id', $dataValidate['clientes_id'])->first();
+
+    $email = 'victormartinezdominguez84@gmail.com';
+ 
+    $pdf = PDF::loadView('factura', compact('cuota'));
+    $pdf_content = $pdf->output();
+
+$asunto = 'factura';
+    // $asunto = "Factura $cuota->id $cuota->concepto";
+    dd($cuota);
+    Mail::send('factura', ['cliente' => $cliente, 'asunto' => $asunto], function ($message) use ($email, $pdf_content, $asunto) {
+        $message->to($email)
+            ->subject($asunto)
+            ->attachData($pdf_content, "$asunto.pdf");
+    });
 
     session()->flash('message', 'La cuota ha sido registrada correctamente.');
     return redirect()->route('listaCuotas');
 
+    }
+
+    public function validarCuotaExcepcional()
+    {
+        $data = request()->validate([
+            'clientes_id' => 'required',
+            'concepto' => 'required',
+            'fecha_emision' => 'required|after:now',
+            'importe' => 'required',
+            'notas' => 'required',
+        ]);
+
+        $cuota = Cuota::create($data);
+
+        //-----Enviar Cuota excepcional por correo automaticamente
+
+        $cliente = Cliente::where('id', $data['clientes_id'])->first();
+        //$cliente = Cliente::where('id', $data['clientes_id'])->whereNotNull('deleted_at')->first();
+
+        //dd($cliente);
+
+        $email = 'nicoadrianx42x@gmail.com';
+
+        $pdf = PDF::loadView('facturas.factura', compact('cuota'));
+        $pdf_content = $pdf->output();
+
+
+        $asunto = "Factura $cuota->id $cuota->concepto";
+
+        Mail::send('email.cuotaPDF', ['cliente' => $cliente, 'asunto' => $asunto], function ($message) use ($email, $pdf_content, $asunto) {
+            $message->to($email)
+                ->subject($asunto)
+                ->attachData($pdf_content, "$asunto.pdf");
+        });
+
+        session()->flash('message', 'La cuota ha sido creada correctamente.');
+
+        return redirect()->route('formularioCuota');
     }
 
     public function formInsertarCuotaMensual(Request $request)
@@ -86,29 +143,6 @@ class ControllerCuotas extends Controller
     public function confirmarBorrarCuota(Cuota $cuota)
     {
         return view('confirmarBorrarCuota', compact('cuota'));
-    }
-
-    // Remesa Mensual:
-
-    public function validarInsertar()
-    {
-        $data = request()->validate([
-            'concepto' => 'required',
-            'fecha_emision' => 'required',
-            'notas' => 'required',
-        ]);
-
-        $clientes = Cliente::all();
-
-        foreach ($clientes as $cliente) {
-            $data['clientes_id'] = $cliente->id;
-            $data['importe'] = $cliente->cuota_mensual;
-            Cuota::create($data);
-        }
-
-        session()->flash('message', 'La cuota ha sido creada correctamente.');
-
-        return redirect()->route('formCuotas');
     }
 
     public function formEditarCuota(Cuota $cuota)

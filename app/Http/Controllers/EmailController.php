@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\NosecaenMail;
 use Illuminate\Mail\Message;
 use App\Models\Empleado;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class EmailController extends Controller
@@ -30,7 +28,8 @@ class EmailController extends Controller
             $message->to($to)
                 ->subject($subject);
         });
-        return 'Correo electrónico enviado';
+
+ 
     }
 
     public function checkEmpleado(Request $request)
@@ -51,11 +50,13 @@ class EmailController extends Controller
             $empleado->update(['password' => Hash::make($this->password)]);
         
             $this->store();
-      
+            session()->flash('message', 'Se ha enviado la nueva contraseña a su email.');
+            return redirect('/recuperarClave');
  
         }else{
-            session()->flash('error', 'El empleado introducido no existe.');
-            return redirect('/');
+            session()->flash('error', 'El usuario introducido no existe.');
+       
+            return redirect('/recuperarClave');
         }
      
 

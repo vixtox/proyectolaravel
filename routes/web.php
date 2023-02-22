@@ -98,6 +98,7 @@ Route::middleware(['auth'])->group(function () {
         // Editar
         Route::get('/formEditarEmpleado/{empleado}', [ControllerEmpleados::class, 'formEditarEmpleado'])->name('formEditarEmpleado');
         Route::post('editarEmpleado/{empleado}', [ControllerEmpleados::class, 'editarEmpleado'])->name('editarEmpleado');
+        
         // CUOTAS--------------------------------------------------------------------------------------------------------------
         //Insertar
         Route::get('/registroCuotas', [ControllerCuotas::class, 'formInsertarCuota'])->name('registroCuotas');
