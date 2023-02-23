@@ -37,7 +37,7 @@
                     </tr>
                     <tr>
                         <th>Fecha emisión</th>
-                        <td>{{ $cuota->fecha_emision }}</td>
+                        <td>{{ date('d-m-Y', strtotime($cuota->fecha_emision)) }}</td>
                     </tr>
                     <tr>
                         <th>Importe</th>
@@ -49,7 +49,7 @@
                     </tr>
                     <tr>
                         <th>Fecha pago</th>
-                        <td>{{ $cuota->fecha_pago }}</td>
+                        <td>{{ !empty($cuota->fecha_pago) ? date('d-m-Y', strtotime($cuota->fecha_pago)) :' '}}</td>
                     </tr>
                     <tr>
                         <th>Notas</th>

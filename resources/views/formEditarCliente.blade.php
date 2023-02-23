@@ -56,27 +56,27 @@
             <select class="form-select" name="paises_id">
                 @foreach ($paises as $pais)
                 <option value="{{ $pais->iso3 }}" {{ old('paises_id')==$pais->iso3 || (old('paises_id') == null &&
-                    $tarea->paises_id == $pais->iso3) ? 'selected' : '' }}>
+                    $cliente->paises_id == $pais->iso3) ? 'selected' : '' }}>
                     {{ $pais->nombre }}</option>
                 @endforeach
             </select>
         </div>
         <br>
-        {{-- <div class="col-md-6">
+        <div class="col-md-6">
             <label for="paises_id" class="form-label"><b>Monedas</b></label>
             <select class="form-select" name="paises_id">
                 @foreach ($paises as $pais)
                 <option value="{{ $pais->iso3 }}" {{ old('paises_id')==$pais->iso3 || (old('paises_id') == null &&
-                    $tarea->paises_id == $pais->iso3) ? 'selected' : '' }}>
+                    $cliente->paises_id == $pais->iso3) ? 'selected' : '' }}>
                     {{ $pais->nombre }}</option>
                 @endforeach
             </select>
         </div>
-        <br> --}}
+        <br>
 
         <div id="boton" class="col-md-12">
             <button type="submit" class="btn btn-primary">Enviar</button>
-            <a class="btn btn-success" href="{{ route('listaEmpleados') }}">Volver</a>
+            <a class="btn btn-success" href="{{ route('listaClientes') }}">Volver</a>
         </div>
 
     </div>

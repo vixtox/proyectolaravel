@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
         integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/94d5779c24.js" crossorigin="anonymous"></script>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/fav.png')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/fav.png') }}">
     <title>@yield('titulo')</title>
     @yield('enlacesScripts')
     <style>
@@ -45,14 +45,18 @@
             box-sizing: border-box;
             font-family: 'Yanone Kaffeesatz', sans-serif;
         }
+
+        #cuenta {
+            margin-left: auto;
+        }
     </style>
 </head>
 
 <body>
 
-   
+
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-        &nbsp;&nbsp;&nbsp;&nbsp;<img src="{{ asset('img/fav.png')}}" class="img-fluid" width="50" height="50">
+        &nbsp;&nbsp;&nbsp;&nbsp;<img src="{{ asset('img/fav.png') }}" class="img-fluid" width="50" height="50">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">NOSECAEN SL</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -121,15 +125,25 @@
 
                 </ul>
 
-                @if (Auth::check())
-                    <a href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        Cerrar sesión
+                <div id="cuenta" class="d-flex align-items-center">
+                    <a title="Mi Cuenta" class="nav-link" href="{{ route('formEditarCuenta', Auth::user()) }}" id="navbarDropdown"
+                        role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="text-white px-4">{{ Auth::user()->nombre_apellidos }} |
+                            {{ Auth::user()->es_admin == 0 ? '👷🏻‍♂️ Operario' : '👨🏻‍💼 Administrador' }}
+                        </span>
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                @endif
+
+                    @if (Auth::check())
+                        <a class="btn btn-danger" title="Cerrar sesión" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="bi bi-box-arrow-left"></i>
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    @endif
+                </div>
+
             </div>
         </div>
     </nav>

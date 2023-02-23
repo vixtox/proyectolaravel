@@ -73,7 +73,7 @@ class ControllerEmpleados extends Controller
         $dataValidate = request()->validate([
             'dni'=> ['required', new DniValidarRule],
             'nombre_apellidos'=>'required|min:5|max:50',
-            'password'=>'required',
+            // 'password'=>'required',
             'email'=>'required|email',
             'telefono'=> 'required|regex:/^(?:(?:\+?[0-9]{2,4})?[ ]?[6789][0-9 ]{8,13})$/',
             'direccion'=>'required',
@@ -81,11 +81,33 @@ class ControllerEmpleados extends Controller
             'es_admin'=>'required'
         ]);
 
-        $dataValidate['password'] = Hash::make($dataValidate['password']);
+        // $dataValidate['password'] = Hash::make($dataValidate['password']);
 
     Empleado::where('id', $empleado->id)->update($dataValidate);
 
     session()->flash('message', 'El empleado ha sido actualizado correctamente.');
+    return redirect()->route('listaEmpleados');
+
+    }
+
+    public function formEditarCuenta(Empleado $empleado)
+    {
+        //
+        return view('formEditarCuenta', compact('empleado'));
+    }
+
+    public function editarCuenta(Empleado $empleado){
+    
+        $dataValidate = request()->validate([
+            'email'=>'required|email',
+            'telefono'=> 'required|regex:/^(?:(?:\+?[0-9]{2,4})?[ ]?[6789][0-9 ]{8,13})$/',
+            'direccion'=>'required',
+            'fecha_alta'=>'required',
+        ]);
+
+    Empleado::where('id', $empleado->id)->update($dataValidate);
+
+    session()->flash('message', 'Su cuenta ha sido actualizada correctamente.');
     return redirect()->route('listaEmpleados');
 
     }

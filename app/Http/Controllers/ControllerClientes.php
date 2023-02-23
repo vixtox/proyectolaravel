@@ -62,7 +62,8 @@ class ControllerClientes extends Controller
 
     public function formEditarCliente(Cliente $cliente)
     {
-        return view('formEditarCliente', compact('cliente'));
+        $paises=Pais::all();
+        return view('formEditarCliente', compact('cliente','paises'));
     }
 
     public function editarCliente(Cliente $cliente){

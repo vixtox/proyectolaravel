@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Empleado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class ControllerLogin extends Controller
 {
@@ -37,7 +36,7 @@ class ControllerLogin extends Controller
         return redirect('/');
     }
 
-    public function formRecuperarClave(Request $request)
+    public function formRecuperarClave()
     {
         return view('formRecuperarClave');
     }

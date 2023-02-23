@@ -37,21 +37,18 @@ class ControllerCuotas extends Controller
     ]);
     
     $cuota = Cuota::create($dataValidate);
-
     $cliente = Cliente::where('id', $dataValidate['clientes_id'])->first();
 
-    $email = 'victormartinezdominguez84@gmail.com';
- 
     $pdf = PDF::loadView('factura', compact('cuota'));
     $pdf_content = $pdf->output();
-
-$asunto = 'factura';
-    // $asunto = "Factura $cuota->id $cuota->concepto";
-    dd($cuota);
-    Mail::send('factura', ['cliente' => $cliente, 'asunto' => $asunto], function ($message) use ($email, $pdf_content, $asunto) {
-        $message->to($email)
-            ->subject($asunto)
-            ->attachData($pdf_content, "$asunto.pdf");
+    $subject = "Factura $cuota->id $cuota->concepto";
+    $to = 'victormartinezdominguez84@gmail.com';
+    $body = 'Ya esta disponible su factura, le adjuntamos documento';
+  
+    Mail::raw($body, function (Message $message) use ($to, $subject, $pdf_content) {
+        $message->to($to)
+            ->subject($subject)
+            ->attachData($pdf_content, 'factura.pdf');
     });
 
     session()->flash('message', 'La cuota ha sido registrada correctamente.');
@@ -59,42 +56,21 @@ $asunto = 'factura';
 
     }
 
-    public function validarCuotaExcepcional()
+    public function enviarCorreo(Cuota $cuota)
     {
-        $data = request()->validate([
-            'clientes_id' => 'required',
-            'concepto' => 'required',
-            'fecha_emision' => 'required|after:now',
-            'importe' => 'required',
-            'notas' => 'required',
-        ]);
-
-        $cuota = Cuota::create($data);
-
-        //-----Enviar Cuota excepcional por correo automaticamente
-
-        $cliente = Cliente::where('id', $data['clientes_id'])->first();
-        //$cliente = Cliente::where('id', $data['clientes_id'])->whereNotNull('deleted_at')->first();
-
-        //dd($cliente);
-
-        $email = 'nicoadrianx42x@gmail.com';
-
-        $pdf = PDF::loadView('facturas.factura', compact('cuota'));
+        $pdf = PDF::loadView('factura', compact('cuota'));
         $pdf_content = $pdf->output();
-
-
-        $asunto = "Factura $cuota->id $cuota->concepto";
-
-        Mail::send('email.cuotaPDF', ['cliente' => $cliente, 'asunto' => $asunto], function ($message) use ($email, $pdf_content, $asunto) {
-            $message->to($email)
-                ->subject($asunto)
-                ->attachData($pdf_content, "$asunto.pdf");
+        $subject = "Factura $cuota->id $cuota->concepto";
+        $to = 'victormartinezdominguez84@gmail.com';
+        $body = 'Ya esta disponible su factura, le adjuntamos documento';
+      
+        Mail::raw($body, function (Message $message) use ($to, $subject, $pdf_content) {
+            $message->to($to)
+                ->subject($subject)
+                ->attachData($pdf_content, 'factura.pdf');
         });
-
-        session()->flash('message', 'La cuota ha sido creada correctamente.');
-
-        return redirect()->route('formularioCuota');
+        session()->flash('message', 'El mensaje ha sido enviado correctamente.');
+        return redirect()->route('listaCuotas');
     }
 
     public function formInsertarCuotaMensual(Request $request)

@@ -9,8 +9,7 @@ use App\Http\Controllers\ControllerCuotas;
 use App\Http\Controllers\ControllerLogin;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FacturaController;
-use App\Mail\NosecaenMail;
-use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\ControllerGithub;
 
 
 /*
@@ -24,11 +23,11 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
-Route::get('/email',[EmailController::class, 'store'])->name('email');
+//Inicio de sesion con Github
+Route::get('/github', [ControllerGithub::class, 'redirectToProvider'])->name('github');
+Route::get('/githubcallback', [ControllerGithub::class, 'handleProviderCallback'])->name('githubcallback');
 
-// Route::get('/email', function () {
-//     Mail::to("nosecaen@mail")->send(new NosecaenMail());
-// })->name('email');
+// Route::get('/email',[EmailController::class, 'store'])->name('email');
 
 Route::get('/generatePDF/{cuota}', FacturaController::class)->name('generatePDF');
 
@@ -52,8 +51,10 @@ Route::get('/generatePass', [EmailController::class, 'generatePass'])->name('gen
 Route::get('/insertarTareaCliente', [ControllerTarea::class, 'formularioInsertarTareaCliente'])->name('insertarTareaCliente');
 Route::post('insertarTareaCliente', [ControllerTarea::class, 'insertarTareaCliente'])->name('insertarTareaCliente');
 
-
+// ------------------------------------------------------------------------------------------------------------------------------
 // FUNCIONES ADMINISTRADOR-------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------------------------
+
 Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['administrador'])->group(function () {
@@ -98,6 +99,8 @@ Route::middleware(['auth'])->group(function () {
         // Editar
         Route::get('/formEditarEmpleado/{empleado}', [ControllerEmpleados::class, 'formEditarEmpleado'])->name('formEditarEmpleado');
         Route::post('editarEmpleado/{empleado}', [ControllerEmpleados::class, 'editarEmpleado'])->name('editarEmpleado');
+        Route::get('/formEditarCuenta/{empleado}', [ControllerEmpleados::class, 'formEditarCuenta'])->name('formEditarCuenta');
+        Route::post('editarCuenta/{empleado}', [ControllerEmpleados::class, 'editarCuenta'])->name('editarCuenta');
         
         // CUOTAS--------------------------------------------------------------------------------------------------------------
         //Insertar
@@ -113,6 +116,8 @@ Route::middleware(['auth'])->group(function () {
         // Editar
         Route::get('/formEditarCuota/{cuota}', [ControllerCuotas::class, 'formEditarCuota'])->name('formEditarCuota');
         Route::post('editarCuota/{cuota}', [ControllerCuotas::class, 'editarCuota'])->name('editarCuota');
+        // Enviar correo
+        Route::get('/enviarCorreo/{cuota}', [ControllerCuotas::class, 'enviarCorreo'])->name('enviarCorreo');
     });
 
     // FUNCIONES OPERARIO

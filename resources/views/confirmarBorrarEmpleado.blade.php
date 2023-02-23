@@ -29,17 +29,17 @@
                         <th>Nombre y Apellidos</th>
                         <td>{{ $empleado->nombre_apellidos }}</td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <th>Clave</th>
                         <td>{{ $empleado->clave }}</td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <th>Fecha alta</th>
                         <td>{{ date('d-m-Y', strtotime($empleado->fecha_alta)) }}</td>
                     </tr>
                     <tr>
                         <th>Correo</th>
-                        <td>{{ $empleado->correo }}</td>
+                        <td>{{ $empleado->email }}</td>
                     </tr>
                     <tr>
                         <th>Teléfono</th>
@@ -51,7 +51,13 @@
                     </tr>
                     <tr>
                         <th>Es admin</th>
-                        <td>{{ $empleado->es_admin }}</td>
+                        <td>
+                            @if ($empleado->es_admin == 1)
+                                👨🏻‍💼
+                            @else
+                                👷🏻‍♂️
+                            @endif
+                        </td>
                     </tr>
 
                 </tbody>

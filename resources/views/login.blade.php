@@ -18,7 +18,8 @@
     <!-- Nuestro css-->
     <link rel="stylesheet" type="text/css" href="{{ asset('/resources/css/login.css') }}"
         th:href="@{/resources/css/login.css}">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+        integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
 
     <style>
         body {
@@ -115,12 +116,14 @@
                     </div>
                     <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login </button>
                 </form>
-        
+
                 <div class="col-12 forgot">
                     <a href="{{ route('recuperarClave') }}">Olvide contraseña</a>
                     <br><br>
                     {{-- <input type="checkbox" name="recordar">
                     <label>Recordar usuario</label> --}}
+                    <a href="{{ route('github') }}" class="btn btn-dark mt-1" type="submit">Continuar con &nbsp;<i
+                            class="bi bi-github"></i></a>
                 </div>
 
             </div>
