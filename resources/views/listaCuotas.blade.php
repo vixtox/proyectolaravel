@@ -72,6 +72,9 @@
                                 <a class="btn btn-secondary" href="{{ route('enviarCorreo', $cuota) }}" title="Enviar correo">
                                     <i class="bi bi-envelope"></i>
                                 </a>
+                                <a class="btn btn-primary" href="{{ route('formularioPaypal') }}" title="Pagar con Paypal">
+                                    <i class="bi bi-paypal"></i>
+                                </a>
                             </td>
 
                         </tr>

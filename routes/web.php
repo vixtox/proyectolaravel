@@ -10,7 +10,7 @@ use App\Http\Controllers\ControllerLogin;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\ControllerGithub;
-
+use App\Http\Controllers\ControllerPaypal;
 
 /*
 |--------------------------------------------------------------------------
@@ -118,6 +118,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('editarCuota/{cuota}', [ControllerCuotas::class, 'editarCuota'])->name('editarCuota');
         // Enviar correo
         Route::get('/enviarCorreo/{cuota}', [ControllerCuotas::class, 'enviarCorreo'])->name('enviarCorreo');
+        // PAYPAL
+        Route::get('/paypal/pagar', [ControllerPaypal::class, 'pagarConPaypal'])->name('formularioPaypal');
+        Route::get('/paypal/status', [ControllerPaypal::class, 'paypalStatus'])->name('paypalStatus');
     });
 
     // FUNCIONES OPERARIO

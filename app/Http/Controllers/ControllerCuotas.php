@@ -38,8 +38,13 @@ class ControllerCuotas extends Controller
     
     $cuota = Cuota::create($dataValidate);
     $cliente = Cliente::where('id', $dataValidate['clientes_id'])->first();
+    $tipo_cambio = "";
 
-    $pdf = PDF::loadView('factura', compact('cuota'));
+    if ($cliente['moneda'] != "EUR") {
+        $tipo_cambio = $this->obtenerTipoDeCambio($cliente, $cuota);
+    }
+
+    $pdf = PDF::loadView('factura', compact('cuota', 'cliente', 'tipo_cambio'));
     $pdf_content = $pdf->output();
     $subject = "Factura $cuota->id $cuota->concepto";
     $to = 'victormartinezdominguez84@gmail.com';
@@ -58,7 +63,14 @@ class ControllerCuotas extends Controller
 
     public function enviarCorreo(Cuota $cuota)
     {
-        $pdf = PDF::loadView('factura', compact('cuota'));
+        $cliente = Cliente::where('id', $cuota->clientes_id)->first();
+        $tipo_cambio = "";
+        
+        if ($cliente['moneda'] != "EUR") {
+            $tipo_cambio = $this->obtenerTipoDeCambio($cliente, $cuota);
+        }
+
+        $pdf = PDF::loadView('factura', compact('cuota', 'cliente', 'tipo_cambio'));
         $pdf_content = $pdf->output();
         $subject = "Factura $cuota->id $cuota->concepto";
         $to = 'victormartinezdominguez84@gmail.com';
@@ -93,8 +105,26 @@ class ControllerCuotas extends Controller
         foreach ($clientes as $cliente) {
             $dataValidate['clientes_id'] = $cliente->id;
             $dataValidate['importe'] = $cliente->cuota;
-            Cuota::create($dataValidate);
+            $cuota = Cuota::create($dataValidate);
         }
+        // $cliente = Cliente::where('id', $dataValidate['clientes_id'])->first();
+        // $tipo_cambio = "";
+
+        // if ($cliente['moneda'] != "EUR") {
+        //     $tipo_cambio = $this->obtenerTipoDeCambio($cliente, $cuota);
+        // }
+    
+        // $pdf = PDF::loadView('factura', compact('cuota', 'cliente', 'tipo_cambio'));
+        // $pdf_content = $pdf->output();
+        // $subject = "Factura $cuota->id $cuota->concepto";
+        // $to = 'victormartinezdominguez84@gmail.com';
+        // $body = 'Ya esta disponible su factura, le adjuntamos documento';
+      
+        // Mail::raw($body, function (Message $message) use ($to, $subject, $pdf_content) {
+        //     $message->to($to)
+        //         ->subject($subject)
+        //         ->attachData($pdf_content, 'factura.pdf');
+        // });
 
         session()->flash('message', 'Las cuotas han sido creadas correctamente.');
 
@@ -147,4 +177,38 @@ class ControllerCuotas extends Controller
 
     }
 
+    public function obtenerTipoDeCambio($cliente, $cuota)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.apilayer.com/fixer/convert?to=EUR&from=" . $cliente['moneda'] . "&amount=" . $cuota['importe'] . "",
+            CURLOPT_HTTPHEADER => [
+                "Content-Type: text/plain",
+                "apikey: 3ZeSH8DlojEIFYLauJefGk3NrTMnfbeS"
+            ],
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET"
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        $response = json_decode($response, true);
+
+        return [
+            'importe_api' => $response["result"],
+            'fecha_conversion' => $response["date"],
+            'rate' => $response["info"]["rate"]
+        ];
+    }
+
+
+    
 }

@@ -14,7 +14,8 @@ class EmailController extends Controller
     public $password;
 
     public function __construct() {
-        $this->password = $this->generatePass();
+        // $this->password = $this->generatePass();
+        $this->password = '1111';
     }
 
     public function store()
