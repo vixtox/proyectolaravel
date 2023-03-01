@@ -93,5 +93,32 @@ class RutasCuotasTest extends TestCase
         // Verificamos que la vista 'mensajeBorrarCuota' fue cargada
         $response->assertViewIs('formEditarCuota');
     }
+
+    public function test_registroCuotas_post()
+    {
+        $user = Empleado::where('email', 'ernesto@gmail.com')->first();
+
+        $response = $this->actingAs($user)
+            ->post('cliente', [
+                'id' => 21,
+                'cif' => 'R3797253F',
+                'nombre_apellidos' => 'Max Power',
+                'telefono' => '645666379',
+                'correo' => 'max@gmail.com',
+                'iban' => 'ES1201289314409759879743',
+                'cuota' => '90',
+                'moneda' => 'EUR',
+            ]);
+
+        if ($response->status() == 302) {
+            $response = $this->followRedirects($response);
+        }
+        $response = $this->get(route('registroCuotas'));
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('formCuotas');
+    }
+
    
 }

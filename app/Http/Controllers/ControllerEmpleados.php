@@ -16,40 +16,59 @@ class ControllerEmpleados extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function formInsertarEmpleado(Request $request)
+    public function formInsertarEmpleado()
     {
         //
         return view('formRegistroEmpleados');
     }
 
-    public function insertarEmpleado(){
+    public function formInsertarEmpleadoVue()
+    {
+        //
+        return view('registroEmpleadosVue');
+    }
+
+    public function insertarEmpleado()
+    {
         $dataValidate = request()->validate([
-        'dni'=> ['required', new DniValidarRule],
-        'nombre_apellidos'=>'required|min:5|max:50',
-        'password'=>'required',
-        'email'=>'required|email',
-        'telefono'=> 'required|regex:/^(?:(?:\+?[0-9]{2,4})?[ ]?[6789][0-9 ]{8,13})$/',
-        'direccion'=>'required',
-        'fecha_alta'=>'required',
-        'es_admin'=>'required'
-    ]);
+            'dni' => ['required', new DniValidarRule],
+            'nombre_apellidos' => 'required|min:5|max:50',
+            'password' => 'required',
+            'email' => 'required|email',
+            'telefono' => 'required|regex:/^(?:(?:\+?[0-9]{2,4})?[ ]?[6789][0-9 ]{8,13})$/',
+            'direccion' => 'required',
+            'fecha_alta' => 'required',
+            'es_admin' => 'required'
+        ]);
 
-    $dataValidate['password'] = Hash::make($dataValidate['password']);
+        $dataValidate['password'] = Hash::make($dataValidate['password']);
 
-    Empleado::create($dataValidate);
+        Empleado::create($dataValidate);
 
-    session()->flash('message', 'El empleado ha sido registrado correctamente.');
-    $empleados = Empleado::orderBy('fecha_alta', 'desc')->paginate(10);
-    return redirect()->route('listaEmpleados', compact('empleados'));
-
+        session()->flash('message', 'El empleado ha sido registrado correctamente.');
+        $empleados = Empleado::orderBy('fecha_alta', 'desc')->paginate(5);
+        return redirect()->route('listaEmpleados', compact('empleados'));
     }
 
     public function listarEmpleados()
     {
-        $empleados = Empleado::orderBy('fecha_alta', 'desc')->paginate(10);
+        $empleados = Empleado::orderBy('fecha_alta', 'desc')->paginate(5);
 
         return view('listaEmpleados', compact('empleados'));
     }
+
+    public function listaEmpleadosVue()
+    {
+        return view('listaEmpleadosVue');
+    }
+
+    // public function listaEmpleadosVue()
+    // {
+    //     $empleado = new Empleado();
+    //     $empleados = $empleado->obtenerEmpleados();
+    //     $empleadosJson = json_encode($empleados);
+    //     return view('listaEmpleadosVue', compact('empleadosJson'));
+    // }
 
     public function borrarEmpleado(Empleado $empleado)
     {
@@ -68,26 +87,26 @@ class ControllerEmpleados extends Controller
         return view('formEditarEmpleado', compact('empleado'));
     }
 
-    public function editarEmpleado(Empleado $empleado){
-    
+    public function editarEmpleado(Empleado $empleado)
+    {
+
         $dataValidate = request()->validate([
-            'dni'=> ['required', new DniValidarRule],
-            'nombre_apellidos'=>'required|min:5|max:50',
+            'dni' => ['required', new DniValidarRule],
+            'nombre_apellidos' => 'required|min:5|max:50',
             // 'password'=>'required',
-            'email'=>'required|email',
-            'telefono'=> 'required|regex:/^(?:(?:\+?[0-9]{2,4})?[ ]?[6789][0-9 ]{8,13})$/',
-            'direccion'=>'required',
-            'fecha_alta'=>'required',
-            'es_admin'=>'required'
+            'email' => 'required|email',
+            'telefono' => 'required|regex:/^(?:(?:\+?[0-9]{2,4})?[ ]?[6789][0-9 ]{8,13})$/',
+            'direccion' => 'required',
+            'fecha_alta' => 'required',
+            'es_admin' => 'required'
         ]);
 
         // $dataValidate['password'] = Hash::make($dataValidate['password']);
 
-    Empleado::where('id', $empleado->id)->update($dataValidate);
+        Empleado::where('id', $empleado->id)->update($dataValidate);
 
-    session()->flash('message', 'El empleado ha sido actualizado correctamente.');
-    return redirect()->route('listaEmpleados');
-
+        session()->flash('message', 'El empleado ha sido actualizado correctamente.');
+        return redirect()->route('listaEmpleados');
     }
 
     public function formEditarCuenta(Empleado $empleado)
@@ -96,20 +115,19 @@ class ControllerEmpleados extends Controller
         return view('formEditarCuenta', compact('empleado'));
     }
 
-    public function editarCuenta(Empleado $empleado){
-    
+    public function editarCuenta(Empleado $empleado)
+    {
+
         $dataValidate = request()->validate([
-            'email'=>'required|email',
-            'telefono'=> 'required|regex:/^(?:(?:\+?[0-9]{2,4})?[ ]?[6789][0-9 ]{8,13})$/',
-            'direccion'=>'required',
-            'fecha_alta'=>'required',
+            'email' => 'required|email',
+            'telefono' => 'required|regex:/^(?:(?:\+?[0-9]{2,4})?[ ]?[6789][0-9 ]{8,13})$/',
+            'direccion' => 'required',
+            'fecha_alta' => 'required',
         ]);
 
-    Empleado::where('id', $empleado->id)->update($dataValidate);
+        Empleado::where('id', $empleado->id)->update($dataValidate);
 
-    session()->flash('message', 'Su cuenta ha sido actualizada correctamente.');
-    return redirect()->route('listaEmpleados');
-
+        session()->flash('message', 'Su cuenta ha sido actualizada correctamente.');
+        return redirect()->route('listaEmpleados');
     }
-
 }

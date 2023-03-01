@@ -88,10 +88,12 @@ Route::middleware(['auth'])->group(function () {
         // Insertar
         Route::get('/registroEmpleado', [ControllerEmpleados::class, 'formInsertarEmpleado'])->name('registroEmpleado');
         Route::post('registroEmpleado', [ControllerEmpleados::class, 'insertarEmpleado']);
+        Route::get('/registroEmpleadoVue', [ControllerEmpleados::class, 'formInsertarEmpleadoVue'])->name('registroEmpleadoVue');
         // Listar
         // Route::get('/listaEmpleados', [ControllerEmpleados::class, 'listarEmpleados'])->name('listaEmpleados');
         Route::middleware(['administrador'])->group(function () {
             Route::get('/listaEmpleados', [ControllerEmpleados::class, 'listarEmpleados'])->name('listaEmpleados');
+            Route::get('/listaEmpleadosVue', [ControllerEmpleados::class, 'listaEmpleadosVue'])->name('listaEmpleadosVue');
         });
         // Borrar
         Route::get('/confirmarBorrarEmpleado/{empleado}', [ControllerEmpleados::class, 'confirmarBorrarEmpleado'])->name('confirmarBorrarEmpleado');

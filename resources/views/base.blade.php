@@ -26,8 +26,7 @@
     <title>@yield('titulo')</title>
     @yield('enlacesScripts')
     <style>
-        #formulario,
-        #cabecera {
+        #formulario {
             margin-left: 5em;
             margin-right: 5em;
         }
@@ -96,8 +95,15 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{{ route('listaEmpleados') }}">Listar Empleados</a>
                                 </li>
+                                <li><a class="dropdown-item" href="{{ route('listaEmpleadosVue') }}">Listar Empleados
+                                        Vue</a>
+                                </li>
                                 <li><a class="dropdown-item" href="{{ route('registroEmpleado') }}">Registrar
                                         Empleado</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{{ route('registroEmpleadoVue') }}">Registrar
+                                        Empleado Vue</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="dropdown">
@@ -126,10 +132,11 @@
                 </ul>
 
                 <div id="cuenta" class="d-flex align-items-center">
-                    <a title="Mi Cuenta" class="nav-link" href="{{ route('formEditarCuenta', Auth::user()) }}" id="navbarDropdown"
-                        role="button" aria-haspopup="true" aria-expanded="false">
-                        <span class="text-white px-4">{{ Auth::user()->nombre_apellidos }} |
-                            {{ Auth::user()->es_admin == 0 ? '👷🏻‍♂️ Operario' : '👨🏻‍💼 Administrador' }}
+                    <a title="Mi Cuenta" class="nav-link" href="{{ route('formEditarCuenta', Auth::user()) }}"
+                        id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="text-white px-4"><span style="color:gold">Usuario:</span>
+                            {{ Auth::user()->nombre_apellidos }}  &nbsp;<span style="color:gold">Rol:</span>
+                            {{ Auth::user()->es_admin == 0 ? 'Operario 👷🏻‍♂️' : 'Administrador 👨🏻‍💼' }}
                         </span>
                     </a>
 
@@ -138,7 +145,8 @@
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="bi bi-box-arrow-left"></i>
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                            style="display: none;">
                             @csrf
                         </form>
                     @endif
@@ -147,7 +155,7 @@
             </div>
         </div>
     </nav>
-
+    @yield('mensaje')
     @yield('contenido')
 
     <br>

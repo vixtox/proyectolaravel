@@ -14,13 +14,15 @@
     }
 </style>
 
-<div class="cabecera">
-    @if (session()->has('message'))
-        <div class="alert alert-success">
-            {{ session()->get('message') }}
-        </div>
-    @endif
-</div>
+@section('mensaje')
+    <div class="cabecera">
+        @if (session()->has('message'))
+            <div class="alert alert-success">
+                {{ session()->get('message') }}
+            </div>
+        @endif
+    </div>
+@endsection
 
 @section('contenido')
 

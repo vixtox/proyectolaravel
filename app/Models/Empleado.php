@@ -18,7 +18,9 @@ class Empleado extends Authenticatable
     public $timestamps = false;
     protected $fillable = ['dni', 'nombre_apellidos', 'password', 'email', 'telefono', 'direccion', 'fecha_alta', 'es_admin'];
 
-   
-
+    public function obtenerEmpleados()
+    {
+        return $this->all();
+    }   
 
 }
