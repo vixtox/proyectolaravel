@@ -100,3 +100,4 @@ class ControllerPaypal extends Controller
         return redirect()->route('listaCuotas', 'fecha_emision');
     }
 }
+?>

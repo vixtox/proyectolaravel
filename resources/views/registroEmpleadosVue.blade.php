@@ -4,7 +4,7 @@
 
 @section('contenido')
 
-    <div id="app2"></div>
+    <div id="registroempleados"></div>
 
     @vite('resources/js/app.js')
     {{-- <script src="{{ asset('js/app.js') }}"></script> --}}

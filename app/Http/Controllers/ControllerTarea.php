@@ -52,7 +52,7 @@ class ControllerTarea extends Controller
 
     public function listarTareas()
     {
-        $tareas = Tarea::orderBy('fecha_realizacion', 'desc')->paginate(10);
+        $tareas = Tarea::orderBy('fecha_realizacion', 'desc')->paginate(5);
       
         return view('listaTareas', compact('tareas'));
 
@@ -175,3 +175,5 @@ class ControllerTarea extends Controller
             }
 
 }
+
+?>

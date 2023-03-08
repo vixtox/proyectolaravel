@@ -2,8 +2,8 @@ import './bootstrap';
 
 import { createApp } from 'vue';
 
-import app from './components/ListarEmpleados.vue';
-import app2 from './components/RegistroEmpleados.vue';
+import ListarEmpleados from './components/ListarEmpleados.vue';
+import RegistroEmpleados from './components/RegistroEmpleados.vue';
 
-createApp (app).mount("#app");
-createApp (app2).mount("#app2");
+createApp (ListarEmpleados).mount("#listarempleados");
+createApp (RegistroEmpleados).mount("#registroempleados");

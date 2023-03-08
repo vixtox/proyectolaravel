@@ -26,3 +26,5 @@ class Administrador
         return $next($request);
     }
 }
+
+?>

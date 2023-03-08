@@ -134,7 +134,7 @@ class ControllerCuotas extends Controller
 
     public function listarCuotas()
     {
-        $cuotas = Cuota::orderBy('fecha_emision', 'desc')->paginate(5);
+        $cuotas = Cuota::orderBy('fecha_emision', 'desc')->paginate(10);
 
         return view('listaCuotas', compact('cuotas'));
     }

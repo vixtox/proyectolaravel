@@ -99,6 +99,8 @@
 
 <body>
 
+    {{-- <?php    phpinfo(); ?> --}}
+
     <div class="modal-dialog text-center">
         <div class="col-sm-8 main-section">
             <div class="modal-content">
@@ -118,6 +120,8 @@
                 </form>
 
                 <div class="col-12 forgot">
+                    <a href="{{ route('insertarTareaCliente') }}">Formulario tarea cliente</a>
+                    <br><br>
                     <a href="{{ route('recuperarClave') }}">Olvide contraseña</a>
                     <br><br>
                     {{-- <input type="checkbox" name="recordar">
